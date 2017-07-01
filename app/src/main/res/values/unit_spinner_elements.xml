@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="units_array">
+        <!-- Units -->
+        <item>Ounces</item>
+        <item>Cartons</item>
+        <item>Gallons</item>
+        <item>Cups</item>
+        <!-- default hint -->
+        <item>Units</item>
+    </string-array>
+</resources>

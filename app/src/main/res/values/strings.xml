@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">GroupShop</string>
+    <string name="title_activity_list">ListActivity</string>
+    <string name="title_activity_menu_list">MenuListActivity</string>
+    <string name="action_settings">Settings</string>
+
+    <!-- Edit Item -->
+    <string name="title_activity_item_edit">New Item</string>
+    <string name="item_edit_save">Save</string>
+    <string name="item_edit_name_hint">Name</string>
+    <string name="item_edit_quantity_selection">Quantity</string>
+    <string name="units_spinner_default">Units</string>
+
+    <!-- Number Picker -->
+    <string name="number_picker_increment">+</string>
+    <string name="number_picker_decrement">-</string>
+    <string name="number_picker_default_value">1</string>
+
+
+</resources>
