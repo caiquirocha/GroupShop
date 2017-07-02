@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -37,6 +38,8 @@ public class ItemEditActivity extends AppCompatActivity {
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_close_white);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        // ui elements
+        initNameText();
         initSpinner();
         initCounter();
 
@@ -79,6 +82,14 @@ public class ItemEditActivity extends AppCompatActivity {
      */
     public Item getItem() {
         return item;
+    }
+
+    /**
+     * Initialize name edit text
+     */
+    private void initNameText() {
+        EditText name = (EditText) findViewById(R.id.text_input_item);
+        name.addTextChangedListener(new ItemNameListener(this));
     }
 
     /**
