@@ -11,26 +11,26 @@ import com.jjacobson.groupshop.R;
 
 public class QuantityButtonListener implements View.OnClickListener {
 
+    private ItemEditActivity activity;
     private EditText text;
 
     public QuantityButtonListener(ItemEditActivity activity) {
+        this.activity = activity;
         text = (EditText) activity.findViewById(R.id.number_picker_display);
     }
 
     @Override
     public void onClick(View view) {
+        int value = Integer.parseInt(text.getText().toString());
         if (view.getId() == R.id.button_increase) {
-            int value = Integer.parseInt(text.getText().toString());
             text.setText(String.valueOf(++value));
-            return;
         }
-
         if (view.getId() == R.id.button_decrease) {
-            int value = Integer.parseInt(text.getText().toString());
             if (value <= 1) {
                 return;
             }
             text.setText(String.valueOf(--value));
         }
+        activity.getItem().setCount(value);
     }
 }

@@ -37,7 +37,6 @@ public class ItemEditActivity extends AppCompatActivity {
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_close_white);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        // spinner
         initSpinner();
         initCounter();
 
@@ -74,6 +73,15 @@ public class ItemEditActivity extends AppCompatActivity {
     }
 
     /**
+     * Get the item being edited
+     *
+     * @return item being edited
+     */
+    public Item getItem() {
+        return item;
+    }
+
+    /**
      * Initialize spinner with default hint
      */
     private void initSpinner() {
@@ -100,8 +108,12 @@ public class ItemEditActivity extends AppCompatActivity {
         adapter.addAll(Arrays.asList(getResources().getStringArray(R.array.units_array)));
         spinner.setAdapter(adapter);
         spinner.setSelection(adapter.getCount()); // set the hint the default selection
+        spinner.setOnItemClickListener(new UnitSpinnerListener(this));
     }
 
+    /**
+     * Initialize the quantity counter
+     */
     private void initCounter() {
         Button increase = (Button) findViewById(R.id.button_increase);
         Button decrease = (Button) findViewById(R.id.button_decrease);
@@ -147,6 +159,4 @@ public class ItemEditActivity extends AppCompatActivity {
     private void saveItem() {
 
     }
-
-
 }
