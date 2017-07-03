@@ -8,8 +8,6 @@
     tools:context="com.jjacobson.groupshop.shoppinglist.list.ShoppingListActivity"
     tools:showIn="@layout/activity_list">
 
-
-
     <android.support.v7.widget.RecyclerView
         android:id="@+id/contacts_recycler_view"
         android:scrollbars="vertical"
