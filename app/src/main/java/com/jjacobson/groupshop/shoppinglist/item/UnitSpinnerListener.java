@@ -7,7 +7,7 @@ import android.widget.AdapterView;
  * Created by Jeremiah on 7/1/2017.
  */
 
-public class UnitSpinnerListener implements AdapterView.OnItemClickListener {
+public class UnitSpinnerListener implements AdapterView.OnItemSelectedListener {
 
     private ItemEditActivity activity;
 
@@ -16,7 +16,16 @@ public class UnitSpinnerListener implements AdapterView.OnItemClickListener {
     }
 
     @Override
-    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-        activity.getItem().setUnit(adapterView.getItemAtPosition(i).toString());
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+        String content = adapterView.getItemAtPosition(i).toString();
+        if (content == null || content.equals("")) {
+            return;
+        }
+        activity.getItem().setUnit(content);
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
     }
 }

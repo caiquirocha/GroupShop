@@ -28,9 +28,6 @@ public class ItemEditActivity extends AppCompatActivity {
     private DatabaseReference databaseReference;
     private Item item;
 
-    //ui
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -119,7 +116,7 @@ public class ItemEditActivity extends AppCompatActivity {
         adapter.addAll(Arrays.asList(getResources().getStringArray(R.array.units_array)));
         spinner.setAdapter(adapter);
         spinner.setSelection(adapter.getCount()); // set the hint the default selection
-        spinner.setOnItemClickListener(new UnitSpinnerListener(this));
+        spinner.setOnItemSelectedListener(new UnitSpinnerListener(this));
     }
 
     /**
@@ -161,7 +158,13 @@ public class ItemEditActivity extends AppCompatActivity {
      * Update the interface with the items properties
      */
     private void updateInterface() {
+        //name
         setTitle(item.getName());
+        //quantity
+        EditText quantity = ((EditText) findViewById(R.id.number_picker_display));
+        quantity.setText(String.valueOf(item.getCount()));
+
+
     }
 
     /**
