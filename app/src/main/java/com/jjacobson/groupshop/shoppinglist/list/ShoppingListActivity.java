@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.jjacobson.groupshop.R;
+import com.jjacobson.groupshop.shoppinglist.add.AddItemActivity;
 
 public class ShoppingListActivity extends AppCompatActivity {
 
@@ -28,8 +29,25 @@ public class ShoppingListActivity extends AppCompatActivity {
         String name = intent.getStringExtra("list_name");
         setTitle(name);
 
+        //ui
+        initFab();
 
     }
+
+    /**
+     * Initialize the new list floating action button
+     */
+    private void initFab() {
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab_add_item);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ShoppingListActivity.this, AddItemActivity.class);
+                startActivity(intent);
+            }
+        });
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

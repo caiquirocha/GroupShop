@@ -70,6 +70,8 @@ public class MenuListActivity extends AppCompatActivity {
 
         builder.setTitle(getResources().getString(R.string.new_list_title_text));
         builder.setPositiveButton("Done", new DialogInterface.OnClickListener() {
+
+            @Override
             public void onClick(DialogInterface dialog, int whichButton) {
                 String name = text.getText().toString();
                 if (name.equals("")) {
@@ -77,10 +79,12 @@ public class MenuListActivity extends AppCompatActivity {
                 }
                 Intent intent = new Intent(MenuListActivity.this, ShoppingListActivity.class);
                 intent.putExtra("list_name", name);
-                MenuListActivity.this.startActivity(intent);
+                startActivity(intent);
             }
         });
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+
+            @Override
             public void onClick(DialogInterface dialog, int whichButton) {
             }
         });

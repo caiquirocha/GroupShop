@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".MainActivity" />
         <activity
             android:name=".shoppinglist.list.ShoppingListActivity"
             android:label="@string/title_activity_list"
@@ -26,8 +26,11 @@
         </activity>
         <activity
             android:name=".shoppinglist.item.ItemEditActivity"
-            android:label="@string/title_activity_item_edit"></activity>
-        <activity android:name=".shoppinglist.add.AddItemActivity"></activity>
+            android:label="@string/title_activity_item_edit" />
+        <activity
+            android:name=".shoppinglist.add.AddItemActivity"
+            android:label="@string/title_activity_add_item"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

@@ -12,4 +12,7 @@
     <color name="colorBarHintFocused">#757575</color>
     <color name="colorInputHintFloat">#616161</color>
 
+    <color name="colorTabActive">#ffffff</color>
+    <color name="colorTabInactive">#b9ffffff</color>
+
 </resources>

@@ -5,4 +5,12 @@ package com.jjacobson.groupshop.shoppinglist.list;
  */
 
 public class List {
+
+    private String name;
+
+
+    public List() {
+
+    }
+
 }
