@@ -29,22 +29,6 @@ public class ShoppingListActivity extends AppCompatActivity {
 
         //ui
         initFab();
-
-    }
-
-    /**
-     * Initialize the new list floating action button
-     */
-    private void initFab() {
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab_add_item);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // open dialog
-                ItemEditDialog dialog = new ItemEditDialog(ShoppingListActivity.this, null);
-                dialog.open();
-            }
-        });
     }
 
     @Override
@@ -64,5 +48,20 @@ public class ShoppingListActivity extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    /**
+     * Initialize the new list floating action button
+     */
+    private void initFab() {
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab_add_item);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // open dialog
+                ItemEditDialog dialog = new ItemEditDialog(ShoppingListActivity.this, null);
+                dialog.open();
+            }
+        });
     }
 }
