@@ -5,7 +5,6 @@ import android.widget.EditText;
 
 import com.jjacobson.groupshop.R;
 import com.jjacobson.groupshop.shoppinglist.list.ItemEditDialog;
-import com.jjacobson.groupshop.shoppinglist.list.ShoppingListActivity;
 
 /**
  * Created by Jeremiah on 6/30/2017.

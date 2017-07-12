@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -29,6 +31,7 @@ public class ShoppingListActivity extends AppCompatActivity {
 
         //ui
         initFab();
+        initRecycler();
     }
 
     @Override
@@ -63,5 +66,13 @@ public class ShoppingListActivity extends AppCompatActivity {
                 dialog.open();
             }
         });
+    }
+
+    /**
+     * Initialize the recyclerview
+     */
+    private void initRecycler() {
+        RecyclerView items = (RecyclerView) findViewById(R.id.shopping_list_recycler);
+        items.setLayoutManager(new LinearLayoutManager(this));
     }
 }
