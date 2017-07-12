@@ -4,6 +4,8 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.jjacobson.groupshop.R;
+import com.jjacobson.groupshop.shoppinglist.list.ItemEditDialog;
+import com.jjacobson.groupshop.shoppinglist.list.ShoppingListActivity;
 
 /**
  * Created by Jeremiah on 6/30/2017.
@@ -11,12 +13,12 @@ import com.jjacobson.groupshop.R;
 
 public class QuantityButtonListener implements View.OnClickListener {
 
-    private ItemEditActivity activity;
+    private ItemEditDialog dialog;
     private EditText text;
 
-    public QuantityButtonListener(ItemEditActivity activity) {
-        this.activity = activity;
-        text = (EditText) activity.findViewById(R.id.number_picker_display);
+    public QuantityButtonListener(View view, ItemEditDialog dialog) {
+        this.dialog = dialog;
+        text = (EditText) view.findViewById(R.id.number_picker_display);
     }
 
     @Override
@@ -31,6 +33,6 @@ public class QuantityButtonListener implements View.OnClickListener {
             }
             text.setText(String.valueOf(--value));
         }
-        activity.getItem().setCount(value);
+        dialog.getItem().setCount(value);
     }
 }

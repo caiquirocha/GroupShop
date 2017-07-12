@@ -24,9 +24,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".shoppinglist.item.ItemEditActivity"
-            android:label="@string/title_activity_item_edit" />
     </application>
 
 </manifest>

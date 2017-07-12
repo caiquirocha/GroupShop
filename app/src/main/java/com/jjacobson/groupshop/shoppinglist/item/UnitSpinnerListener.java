@@ -3,16 +3,19 @@ package com.jjacobson.groupshop.shoppinglist.item;
 import android.view.View;
 import android.widget.AdapterView;
 
+import com.jjacobson.groupshop.shoppinglist.list.ItemEditDialog;
+import com.jjacobson.groupshop.shoppinglist.list.ShoppingListActivity;
+
 /**
  * Created by Jeremiah on 7/1/2017.
  */
 
 public class UnitSpinnerListener implements AdapterView.OnItemSelectedListener {
 
-    private ItemEditActivity activity;
+    private ItemEditDialog dialog;
 
-    public UnitSpinnerListener(ItemEditActivity activity) {
-        this.activity = activity;
+    public UnitSpinnerListener(ItemEditDialog dialog) {
+        this.dialog = dialog;
     }
 
     @Override
@@ -21,7 +24,7 @@ public class UnitSpinnerListener implements AdapterView.OnItemSelectedListener {
         if (content == null || content.equals("")) {
             return;
         }
-        activity.getItem().setUnit(content);
+        dialog.getItem().setUnit(content);
     }
 
     @Override

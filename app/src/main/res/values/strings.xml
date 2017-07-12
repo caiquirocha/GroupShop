@@ -16,6 +16,7 @@
 
     <!-- Add Item -->
     <string name="action_settings">Settings</string>
+    <string name="new_item_title_text">Add New Item</string>
 
     <!-- Edit Item -->
     <string name="title_activity_item_edit">New Item</string>

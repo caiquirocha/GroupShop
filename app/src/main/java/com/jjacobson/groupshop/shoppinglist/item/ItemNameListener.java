@@ -3,16 +3,18 @@ package com.jjacobson.groupshop.shoppinglist.item;
 import android.text.Editable;
 import android.text.TextWatcher;
 
+import com.jjacobson.groupshop.shoppinglist.list.ItemEditDialog;
+
 /**
  * Created by Jeremiah on 7/1/2017.
  */
 
-class ItemNameListener implements TextWatcher {
+public class ItemNameListener implements TextWatcher {
 
-    private ItemEditActivity activity;
+    private ItemEditDialog dialog;
 
-    public ItemNameListener(ItemEditActivity activity) {
-        this.activity = activity;
+    public ItemNameListener(ItemEditDialog dialog) {
+        this.dialog = dialog;
     }
 
     @Override
@@ -27,6 +29,6 @@ class ItemNameListener implements TextWatcher {
 
     @Override
     public void afterTextChanged(Editable editable) {
-        activity.getItem().setName(editable.toString());
+        dialog.getItem().setName(editable.toString());
     }
 }

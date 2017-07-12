@@ -41,11 +41,11 @@ public class ShoppingListActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 // open dialog
-
+                ItemEditDialog dialog = new ItemEditDialog(ShoppingListActivity.this, null);
+                dialog.open();
             }
         });
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

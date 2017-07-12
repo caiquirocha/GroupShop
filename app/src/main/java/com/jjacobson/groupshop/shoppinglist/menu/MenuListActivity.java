@@ -66,7 +66,7 @@ public class MenuListActivity extends AppCompatActivity {
         View dialogView = inflater.inflate(R.layout.dialog_new_list, null);
         builder.setView(dialogView);
 
-        final EditText text = (EditText) dialogView.findViewById(R.id.dialog_list_text);
+        final EditText text = (EditText) dialogView.findViewById(R.id.dialog_list_name);
 
         builder.setTitle(getResources().getString(R.string.new_list_title_text));
         builder.setPositiveButton("Done", new DialogInterface.OnClickListener() {
