@@ -9,7 +9,39 @@
         android:id="@+id/list_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="16sp" />
+        android:textSize="@dimen/list_name_font_size" />
+
+    <LinearLayout
+        android:id="@+id/layout_list_item_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/item_count_margin"
+        android:layout_toLeftOf="@+id/button_dropdown_list"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/list_item_count_checked"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/item_list_count_checked"
+            android:textSize="@dimen/item_count_font_size" />
+
+        <TextView
+            android:id="@+id/list_item_count_seperator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/item_list_count_seperator"
+            android:textSize="@dimen/item_count_font_size" />
+
+        <TextView
+            android:id="@+id/list_item_count_total"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/item_list_count_total"
+            android:textSize="@dimen/item_count_font_size" />
+
+    </LinearLayout>
+
 
     <ImageButton
         android:id="@+id/button_dropdown_list"
