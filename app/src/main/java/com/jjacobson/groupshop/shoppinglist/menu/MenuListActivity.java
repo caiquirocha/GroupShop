@@ -15,10 +15,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.jjacobson.groupshop.R;
+import com.jjacobson.groupshop.shoppinglist.list.List;
 import com.jjacobson.groupshop.shoppinglist.list.ShoppingListActivity;
 
 public class MenuListActivity extends AppCompatActivity {
+
+    private DatabaseReference database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +31,8 @@ public class MenuListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_menu_list);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        this.database = FirebaseDatabase.getInstance().getReference().child("").getRef(); // todo
 
         //ui
         initDrawer();
@@ -64,6 +71,7 @@ public class MenuListActivity extends AppCompatActivity {
     private void initRecycler() {
         RecyclerView lists = (RecyclerView) findViewById(R.id.menu_list_recycler);
         lists.setLayoutManager(new LinearLayoutManager(this));
+        lists.setAdapter(new MenuListAdapter(List.class, R.layout.row_shopping_list, MenuListHolder.class, database));
     }
 
     /**
