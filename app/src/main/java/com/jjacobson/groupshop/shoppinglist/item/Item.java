@@ -2,13 +2,14 @@ package com.jjacobson.groupshop.shoppinglist.item;
 
 import com.google.firebase.database.Exclude;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * Created by Jeremiah on 6/26/2017.
  */
 
-public class Item {
+public class Item implements Serializable {
 
     private String name;
     private long lastEdited;

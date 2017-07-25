@@ -33,7 +33,7 @@ public class MenuListActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        this.database = FirebaseDatabase.getInstance().getReference().child("").getRef(); // todo
+        this.database = FirebaseDatabase.getInstance().getReference().child("user-lists").child("user-name").getRef(); // todo
 
         //ui
         initDrawer();
@@ -103,9 +103,7 @@ public class MenuListActivity extends AppCompatActivity {
                 if (name.equals("")) {
                     return;
                 }
-                Intent intent = new Intent(MenuListActivity.this, ShoppingListActivity.class);
-                intent.putExtra("list_name", name);
-                startActivity(intent);
+                createNewList(name);
             }
         });
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -118,4 +116,27 @@ public class MenuListActivity extends AppCompatActivity {
         dialog.show();
     }
 
+    /**
+     * Create a new list given a name save it and open its page
+     *
+     * @param name of new list
+     */
+    private void createNewList(String name) {
+        List list = new List();
+        list.setName(name);
+        saveList(list);
+        Intent intent = new Intent(MenuListActivity.this, ShoppingListActivity.class);
+        intent.putExtra("list_extra", list);
+        startActivity(intent);
+
+    }
+
+    /**
+     * Save a list to the database
+     *
+     * @param list to save
+     */
+    private void saveList(List list) {
+        database.push().setValue(list);
+    }
 }

@@ -3,13 +3,14 @@ package com.jjacobson.groupshop.shoppinglist.list;
 import com.google.firebase.database.Exclude;
 import com.jjacobson.groupshop.shoppinglist.item.Item;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Created by Jeremiah on 7/2/2017.
  */
 
-public class List {
+public class List implements Serializable {
 
     private String name;
     private int totalItems;
@@ -54,4 +55,5 @@ public class List {
     public ArrayList<Item> getItems() {
         return items;
     }
+
 }

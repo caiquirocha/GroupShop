@@ -26,8 +26,9 @@ public class ShoppingListActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         Intent intent = getIntent();
-        String name = intent.getStringExtra("list_name");
-        setTitle(name);
+        List list = (List) intent.getSerializableExtra("list_extra");
+
+        setTitle(list.getName());
 
         //ui
         initFab();
