@@ -24,6 +24,7 @@ import com.jjacobson.groupshop.shoppinglist.list.ShoppingListActivity;
 public class MenuListActivity extends AppCompatActivity {
 
     private DatabaseReference database;
+    private MenuListAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +39,12 @@ public class MenuListActivity extends AppCompatActivity {
         initDrawer();
         initFab();
         initRecycler();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        adapter.cleanup();
     }
 
     /**
@@ -70,8 +77,10 @@ public class MenuListActivity extends AppCompatActivity {
      */
     private void initRecycler() {
         RecyclerView lists = (RecyclerView) findViewById(R.id.menu_list_recycler);
+        MenuListAdapter adapter = new MenuListAdapter(List.class, R.layout.row_shopping_list, MenuListHolder.class, database);
+        this.adapter = adapter;
         lists.setLayoutManager(new LinearLayoutManager(this));
-        lists.setAdapter(new MenuListAdapter(List.class, R.layout.row_shopping_list, MenuListHolder.class, database));
+        lists.setAdapter(adapter);
     }
 
     /**
