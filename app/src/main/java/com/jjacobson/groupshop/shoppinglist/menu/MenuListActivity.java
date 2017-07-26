@@ -15,6 +15,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.jjacobson.groupshop.R;
@@ -23,6 +25,7 @@ import com.jjacobson.groupshop.shoppinglist.list.ShoppingListActivity;
 
 public class MenuListActivity extends AppCompatActivity {
 
+    private FirebaseAuth auth;
     private DatabaseReference database;
     private MenuListAdapter adapter;
 
@@ -33,7 +36,8 @@ public class MenuListActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        this.database = FirebaseDatabase.getInstance().getReference().child("user-lists").child("user-name").getRef(); // todo
+        auth = FirebaseAuth.getInstance();
+        database = FirebaseDatabase.getInstance().getReference().child("user-lists").child("user-name").getRef(); // todo
 
         //ui
         initDrawer();
@@ -45,6 +49,15 @@ public class MenuListActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         adapter.cleanup();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        FirebaseUser user = auth.getCurrentUser();
+        if (user == null) {
+
+        }
     }
 
     /**
@@ -128,7 +141,6 @@ public class MenuListActivity extends AppCompatActivity {
         Intent intent = new Intent(MenuListActivity.this, ShoppingListActivity.class);
         intent.putExtra("list_extra", list);
         startActivity(intent);
-
     }
 
     /**
