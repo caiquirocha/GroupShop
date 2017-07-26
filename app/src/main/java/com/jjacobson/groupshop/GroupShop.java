@@ -15,6 +15,8 @@ public class GroupShop extends Application {
     public void onCreate() {
         super.onCreate();
         FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+
+        // todo anonymous sign in
     }
 
 }
