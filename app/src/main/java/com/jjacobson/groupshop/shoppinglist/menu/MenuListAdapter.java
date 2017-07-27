@@ -29,6 +29,8 @@ public class MenuListAdapter extends FirebaseRecyclerAdapter<List, MenuListHolde
 
     @Override
     protected void populateViewHolder(MenuListHolder holder, List list, int position) {
+        list.setKey(getRef(position).getKey());
+        holder.setList(list);
         holder.setName(list.getName());
         holder.setItemCount(list.getCheckedItems(), list.getTotalItems());
         // todo check shared users row

@@ -18,6 +18,8 @@
     <string name="action_list_edit">Edit</string>
     <string name="action_list_share">Share</string>
     <string name="action_list_delete">Delete</string>
+    <string name="rename_list_title_text">Rename List</string>
+
 
     <!-- Shopping List -->
     <string name="action_list_settings">Settings</string>

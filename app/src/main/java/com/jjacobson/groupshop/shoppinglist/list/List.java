@@ -17,6 +17,7 @@ public class List implements Serializable {
     private int checkedItems;
 
     private ArrayList<Item> items;
+    private String key;
 
     public List() {
 
@@ -54,6 +55,16 @@ public class List implements Serializable {
     @Exclude
     public ArrayList<Item> getItems() {
         return items;
+    }
+
+    @Exclude
+    public String getKey() {
+        return key;
+    }
+
+    @Exclude
+    public void setKey(String key) {
+        this.key = key;
     }
 
 }

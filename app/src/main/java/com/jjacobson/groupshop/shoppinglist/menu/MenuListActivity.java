@@ -38,7 +38,8 @@ public class MenuListActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         auth = FirebaseAuth.getInstance();
-        database = FirebaseDatabase.getInstance().getReference().child("user-lists").child("user-name").getRef(); // todo
+        FirebaseUser user = auth.getCurrentUser();
+        database = FirebaseDatabase.getInstance().getReference().child("user-lists").child(user.getUid()).getRef(); // todo
 
         //ui
         initDrawer();
@@ -105,7 +106,7 @@ public class MenuListActivity extends AppCompatActivity {
     private void displayCreateDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         LayoutInflater inflater = getLayoutInflater();
-        View dialogView = inflater.inflate(R.layout.dialog_new_list, null);
+        View dialogView = inflater.inflate(R.layout.dialog_list_name, null);
         builder.setView(dialogView);
 
         final EditText text = (EditText) dialogView.findViewById(R.id.dialog_list_name);
@@ -119,7 +120,10 @@ public class MenuListActivity extends AppCompatActivity {
                 if (name.equals("")) {
                     return;
                 }
-                createNewList(name);
+                List list = createNewList(name);
+                Intent intent = new Intent(MenuListActivity.this, ShoppingListActivity.class);
+                intent.putExtra("list_extra", list);
+                startActivity(intent);
             }
         });
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -133,17 +137,16 @@ public class MenuListActivity extends AppCompatActivity {
     }
 
     /**
-     * Create a new list given a name save it and open its page
+     * Create and save a new list
      *
-     * @param name of new list
+     * @param name of list
+     * @return the created and saved list
      */
-    private void createNewList(String name) {
+    private List createNewList(String name) {
         List list = new List();
         list.setName(name);
         saveList(list);
-        Intent intent = new Intent(MenuListActivity.this, ShoppingListActivity.class);
-        intent.putExtra("list_extra", list);
-        startActivity(intent);
+        return list;
     }
 
     /**

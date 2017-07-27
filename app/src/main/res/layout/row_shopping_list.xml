@@ -3,7 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="@dimen/row_shopping_list_margin">
+    android:paddingBottom="@dimen/row_shopping_list_margin_bottom"
+    android:paddingLeft="@dimen/row_shopping_list_margin"
+    android:paddingRight="@dimen/row_shopping_list_margin"
+    android:paddingTop="@dimen/row_shopping_list_margin">
 
     <TextView
         android:id="@+id/list_name"
@@ -11,12 +14,21 @@
         android:layout_height="wrap_content"
         android:textSize="@dimen/list_name_font_size" />
 
+    <ImageButton
+        android:id="@+id/button_dropdown_list"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:background="@null"
+        android:paddingTop="2dp"
+        app:srcCompat="@drawable/ic_more_vert_black" />
+
     <LinearLayout
         android:id="@+id/layout_list_item_count"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginRight="@dimen/item_count_margin"
-        android:layout_toLeftOf="@+id/button_dropdown_list"
+        android:layout_toLeftOf="@id/button_dropdown_list"
         android:orientation="horizontal">
 
         <TextView
@@ -41,15 +53,6 @@
             android:textSize="@dimen/item_count_font_size" />
 
     </LinearLayout>
-
-    <ImageButton
-        android:id="@+id/button_dropdown_list"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:background="@null"
-        android:paddingTop="2dp"
-        app:srcCompat="@drawable/ic_more_vert_black" />
 
     <LinearLayout
         android:id="@+id/layout_list_shared"

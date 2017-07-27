@@ -5,4 +5,7 @@ package com.jjacobson.groupshop.sharing.users;
  */
 
 public class User {
+
+
+
 }

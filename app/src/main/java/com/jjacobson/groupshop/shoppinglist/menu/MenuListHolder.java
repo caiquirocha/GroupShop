@@ -1,5 +1,6 @@
 package com.jjacobson.groupshop.shoppinglist.menu;
 
+import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 
 import com.jjacobson.groupshop.R;
 import com.jjacobson.groupshop.sharing.users.User;
+import com.jjacobson.groupshop.shoppinglist.list.List;
 
 /**
  * Created by Jeremiah on 7/12/2017.
@@ -22,6 +24,7 @@ public class MenuListHolder extends RecyclerView.ViewHolder {
     private LinearLayout sharedUsers;
 
     private View itemView;
+    private List list;
 
     public MenuListHolder(View itemView) {
         super(itemView);
@@ -42,10 +45,19 @@ public class MenuListHolder extends RecyclerView.ViewHolder {
     }
 
     /**
+     * Set the list for this holder
+     *
+     * @param list for this holder
+     */
+    public void setList(List list) {
+        this.list = list;
+    }
+
+    /**
      * Set the purchased count display
      *
      * @param checked number of items purchased
-     * @param total number of items
+     * @param total   number of items
      */
     public void setItemCount(int checked, int total) {
         TextView checkedView = (TextView) itemCount.findViewById(R.id.list_item_count_checked);
@@ -73,8 +85,15 @@ public class MenuListHolder extends RecyclerView.ViewHolder {
      * Initialize the image button dropdown menu
      */
     private void initDropdown() {
-        ImageButton dropdown = (ImageButton) itemView.findViewById(R.id.button_dropdown_list);
-
+        final ImageButton button = (ImageButton) itemView.findViewById(R.id.button_dropdown_list);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                PopupMenu menu = new PopupMenu(itemView.getContext(), button);
+                menu.getMenuInflater().inflate(R.menu.menu_shopping_list_row, menu.getMenu());
+                menu.setOnMenuItemClickListener(new ListDropdownListener(itemView.getContext(), list));
+                menu.show();
+            }
+        });
     }
-
 }
