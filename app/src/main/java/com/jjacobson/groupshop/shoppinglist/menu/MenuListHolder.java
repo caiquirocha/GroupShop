@@ -27,7 +27,7 @@ public class MenuListHolder extends RecyclerView.ViewHolder {
         this.inflater = inflater;
         name = (TextView) itemView.findViewById(R.id.list_name);
         itemCount = (LinearLayout) itemView.findViewById(R.id.layout_list_item_count);
-        sharedUsers = (LinearLayout) itemView.findViewById(R.id.layout_list_shared);
+        //sharedUsers = (LinearLayout) itemView.findViewById(R.id.layout_list_shared);
     }
 
     public void setName(String list) {
