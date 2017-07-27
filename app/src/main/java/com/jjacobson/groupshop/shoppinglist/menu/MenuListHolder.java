@@ -1,5 +1,6 @@
 package com.jjacobson.groupshop.shoppinglist.menu;
 
+import android.content.Intent;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 import com.jjacobson.groupshop.R;
 import com.jjacobson.groupshop.sharing.users.User;
 import com.jjacobson.groupshop.shoppinglist.list.List;
+import com.jjacobson.groupshop.shoppinglist.list.ShoppingListActivity;
 
 /**
  * Created by Jeremiah on 7/12/2017.
@@ -32,6 +34,7 @@ public class MenuListHolder extends RecyclerView.ViewHolder {
         name = (TextView) itemView.findViewById(R.id.list_name);
         itemCount = (LinearLayout) itemView.findViewById(R.id.layout_list_item_count);
         sharedUsers = (LinearLayout) itemView.findViewById(R.id.layout_list_shared);
+        initClickListener();
         initDropdown();
     }
 
@@ -79,6 +82,20 @@ public class MenuListHolder extends RecyclerView.ViewHolder {
         //userImage.setImageDrawable(); // TODO: 7/20/2017
         //userName.setText(user.getName());
         sharedUsers.addView(view);
+    }
+
+    /**
+     * Initialize the click listener for the row
+     */
+    private void initClickListener() {
+        itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(), ShoppingListActivity.class);
+                intent.putExtra("list_extra", list);
+                view.getContext().startActivity(intent);
+            }
+        });
     }
 
     /**
