@@ -24,7 +24,7 @@ public class MenuListAdapter extends FirebaseRecyclerAdapter<List, MenuListHolde
     public MenuListHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View view = inflater.inflate(R.layout.row_shopping_list, parent, false);
-        return new MenuListHolder(view, inflater);
+        return new MenuListHolder(view);
     }
 
     @Override

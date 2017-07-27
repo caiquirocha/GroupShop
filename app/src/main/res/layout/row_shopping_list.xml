@@ -42,14 +42,13 @@
 
     </LinearLayout>
 
-
     <ImageButton
         android:id="@+id/button_dropdown_list"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:background="@null"
-        android:onClick="showPopup"
+        android:paddingTop="2dp"
         app:srcCompat="@drawable/ic_more_vert_black" />
 
     <LinearLayout

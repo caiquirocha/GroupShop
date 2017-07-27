@@ -3,6 +3,7 @@ package com.jjacobson.groupshop.shoppinglist.menu;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -20,20 +21,32 @@ public class MenuListHolder extends RecyclerView.ViewHolder {
     private LinearLayout itemCount;
     private LinearLayout sharedUsers;
 
-    private LayoutInflater inflater;
+    private View itemView;
 
-    public MenuListHolder(View itemView, LayoutInflater inflater) {
+    public MenuListHolder(View itemView) {
         super(itemView);
-        this.inflater = inflater;
+        this.itemView = itemView;
         name = (TextView) itemView.findViewById(R.id.list_name);
         itemCount = (LinearLayout) itemView.findViewById(R.id.layout_list_item_count);
-        //sharedUsers = (LinearLayout) itemView.findViewById(R.id.layout_list_shared);
+        sharedUsers = (LinearLayout) itemView.findViewById(R.id.layout_list_shared);
+        initDropdown();
     }
 
+    /**
+     * Set the display name of the list
+     *
+     * @param list to name
+     */
     public void setName(String list) {
         name.setText(list);
     }
 
+    /**
+     * Set the purchased count display
+     *
+     * @param checked number of items purchased
+     * @param total number of items
+     */
     public void setItemCount(int checked, int total) {
         TextView checkedView = (TextView) itemCount.findViewById(R.id.list_item_count_checked);
         TextView totalView = (TextView) itemCount.findViewById(R.id.list_item_count_total);
@@ -41,7 +54,13 @@ public class MenuListHolder extends RecyclerView.ViewHolder {
         totalView.setText(String.valueOf(total));
     }
 
+    /**
+     * Add a user to the shared users layout
+     *
+     * @param user shared with
+     */
     public void addSharedUser(User user) {
+        LayoutInflater inflater = LayoutInflater.from(itemView.getContext());
         View view = inflater.inflate(R.layout.shared_list, null);
         ImageView userImage = (ImageView) view.findViewById(R.id.shared_list_image);
         TextView userName = (TextView) view.findViewById(R.id.shared_list_name);
@@ -49,4 +68,13 @@ public class MenuListHolder extends RecyclerView.ViewHolder {
         //userName.setText(user.getName());
         sharedUsers.addView(view);
     }
+
+    /**
+     * Initialize the image button dropdown menu
+     */
+    private void initDropdown() {
+        ImageButton dropdown = (ImageButton) itemView.findViewById(R.id.button_dropdown_list);
+
+    }
+
 }
