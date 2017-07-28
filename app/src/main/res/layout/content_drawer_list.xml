@@ -18,7 +18,7 @@
 
         <Button
             android:id="@+id/button_sign_in"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:text="@string/sign_in_button_text"/>
@@ -29,7 +29,9 @@
             android:layout_below="@id/button_sign_in"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="@dimen/sign_in_text_margin_top"
-            android:text="@string/sign_in_text"/>
+            android:text="@string/sign_in_text"
+            android:textAlignment="center"
+            android:textColor="@android:color/white"/>
 
     </RelativeLayout>
 
