@@ -37,6 +37,7 @@ public class ListDropdownListener implements PopupMenu.OnMenuItemClickListener {
                 displayEditDialog();
                 break;
             case R.id.action_list_share:
+                shareList();
                 break;
             case R.id.action_list_delete:
                 deleteList();
@@ -80,6 +81,44 @@ public class ListDropdownListener implements PopupMenu.OnMenuItemClickListener {
         dialog.show();
     }
 
+
+    /**
+     * Share the list
+     */
+    private void shareList() {
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        FirebaseUser user = auth.getCurrentUser();
+        if (user.isAnonymous()) {
+            displaySignInDialog();
+        } else {
+            // todo
+        }
+    }
+
+    /**
+     * Display the list name dialog prompt
+     */
+    private void displaySignInDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle(context.getResources().getString(R.string.sign_in_title_text));
+        builder.setMessage(context.getResources().getString(R.string.dialog_sign_in_text));
+        builder.setPositiveButton("Sign In", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int whichButton) {
+                
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int whichButton) {
+            }
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
     /**
      * Rename the list
      *
@@ -110,6 +149,5 @@ public class ListDropdownListener implements PopupMenu.OnMenuItemClickListener {
                 .getReference().child("user-lists").child(user.getUid()).child(list.getKey()).getRef();
         database.removeValue();
     }
-
 
 }

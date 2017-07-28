@@ -15,6 +15,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -72,6 +73,12 @@ public class MenuListActivity extends AppCompatActivity {
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
+        FirebaseUser user = auth.getCurrentUser();
+        if (!user.isAnonymous()) {
+            findViewById(R.id.drawer_button_view).setVisibility(View.GONE);
+            LinearLayout profileLayout = (LinearLayout) findViewById(R.id.drawer_profile_view);
+            // todo populate profile
+        }
     }
 
     /**
