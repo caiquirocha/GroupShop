@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
@@ -22,6 +23,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.jjacobson.groupshop.R;
+import com.jjacobson.groupshop.sharing.users.signin.SignInActivity;
 import com.jjacobson.groupshop.shoppinglist.list.List;
 import com.jjacobson.groupshop.shoppinglist.list.ShoppingListActivity;
 
@@ -57,10 +59,7 @@ public class MenuListActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        FirebaseUser user = auth.getCurrentUser();
-        if (user == null) {
-
-        }
+        updateUI();
     }
 
     /**
@@ -73,12 +72,6 @@ public class MenuListActivity extends AppCompatActivity {
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
-        FirebaseUser user = auth.getCurrentUser();
-        if (!user.isAnonymous()) {
-            findViewById(R.id.drawer_button_view).setVisibility(View.GONE);
-            LinearLayout profileLayout = (LinearLayout) findViewById(R.id.drawer_profile_view);
-            // todo populate profile
-        }
     }
 
     /**
@@ -105,6 +98,27 @@ public class MenuListActivity extends AppCompatActivity {
         this.adapter = adapter;
         lists.setLayoutManager(new LinearLayoutManager(this));
         lists.setAdapter(adapter);
+    }
+
+    private void updateUI() {
+        FirebaseUser user = auth.getCurrentUser();
+        NavigationView nav = (NavigationView) findViewById(R.id.nav_view);
+        View header = nav.getHeaderView(0);
+        if (user == null || user.isAnonymous()) {
+            header.findViewById(R.id.button_sign_in).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(MenuListActivity.this, SignInActivity.class);
+                    intent.putExtra("action_extra", 1);
+                    startActivity(intent);
+                }
+            });
+        } else {
+            header.findViewById(R.id.drawer_button_view).setVisibility(View.GONE);
+            LinearLayout profileLayout = (LinearLayout) header.findViewById(R.id.drawer_profile_view);
+            profileLayout.setVisibility(View.VISIBLE);
+            // todo populate profile
+        }
     }
 
     /**
