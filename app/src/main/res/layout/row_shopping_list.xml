@@ -13,6 +13,7 @@
         android:id="@+id/list_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@color/colorTextPrimary"
         android:textSize="@dimen/list_name_font_size"/>
 
     <ImageButton
@@ -21,7 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:background="@null"
-        android:paddingTop="2dp"
+        android:layout_alignBottom="@id/layout_list_shared"
         app:srcCompat="@drawable/ic_more_vert_black"/>
 
     <LinearLayout

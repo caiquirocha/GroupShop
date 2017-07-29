@@ -1,7 +1,7 @@
 <resources>
 
     <!-- Name -->
-    <string name="app_name">GroupShop</string>
+    <string name="app_name">Group Shop</string>
 
     <!-- Titles -->
     <string name="title_activity_list">ListActivity</string>

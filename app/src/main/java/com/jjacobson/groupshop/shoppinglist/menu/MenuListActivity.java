@@ -39,6 +39,7 @@ public class MenuListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_menu_list);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        setTitle(getResources().getString(R.string.title_activity_menu_list));
 
         auth = FirebaseAuth.getInstance();
         FirebaseUser user = auth.getCurrentUser();
