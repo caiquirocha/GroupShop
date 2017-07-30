@@ -16,8 +16,12 @@ import com.jjacobson.groupshop.shoppinglist.item.Item;
 
 public class ShoppingListAdapter extends FirebaseRecyclerAdapter<Item, ShoppingListHolder> {
 
-    public ShoppingListAdapter(Class<Item> modelClass, @LayoutRes int modelLayout, Class<ShoppingListHolder> viewHolderClass, Query query) {
+    private List list;
+
+    public ShoppingListAdapter(Class<Item> modelClass, @LayoutRes int modelLayout,
+                               Class<ShoppingListHolder> viewHolderClass, Query query, List list) {
         super(modelClass, modelLayout, viewHolderClass, query);
+        this.list = list;
     }
 
     @Override
@@ -31,6 +35,8 @@ public class ShoppingListAdapter extends FirebaseRecyclerAdapter<Item, ShoppingL
     @Override
     protected void populateViewHolder(ShoppingListHolder holder, Item item, int position) {
         item.setKey(getRef(position).getKey());
+        holder.setList(list);
+        holder.setItem(item);
         holder.setName(item.getName());
         holder.setItemCount(item.getCount());
         holder.setUnits(item.getUnit());

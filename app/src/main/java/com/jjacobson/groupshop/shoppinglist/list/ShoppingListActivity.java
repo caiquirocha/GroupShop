@@ -82,7 +82,8 @@ public class ShoppingListActivity extends AppCompatActivity {
      */
     private void initRecycler() {
         RecyclerView items = (RecyclerView) findViewById(R.id.shopping_list_recycler);
-        ShoppingListAdapter adapter = new ShoppingListAdapter(Item.class, R.layout.row_items_list, ShoppingListHolder.class, database);
+        ShoppingListAdapter adapter = new ShoppingListAdapter(Item.class,
+                R.layout.row_items_list, ShoppingListHolder.class, database, list);
         DividerItemDecoration divider = new DividerItemDecoration(items.getContext(), DividerItemDecoration.VERTICAL);
         items.addItemDecoration(divider);
         items.setLayoutManager(new LinearLayoutManager(this));

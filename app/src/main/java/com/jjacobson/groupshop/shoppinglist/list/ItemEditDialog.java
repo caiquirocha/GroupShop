@@ -163,11 +163,15 @@ public class ItemEditDialog {
         EditText name = (EditText) view.findViewById(R.id.dialog_item_name);
         EditText count = (EditText) view.findViewById(R.id.number_picker_display);
         Spinner spinner = (Spinner) view.findViewById(R.id.unit_spinner);
-
+        // name
         name.setText(item.getName());
+        // count
         count.setText(String.valueOf(item.getCount()));
-        ArrayAdapter<String> items = (ArrayAdapter<String>) spinner.getAdapter();
-        spinner.setSelection(items.getPosition(item.getUnit()));
+        // units
+        if (item.getUnit() != null && !item.getUnit().equals("")) {
+            ArrayAdapter<String> items = (ArrayAdapter<String>) spinner.getAdapter();
+            spinner.setSelection(items.getPosition(item.getUnit()));
+        }
     }
 
     /**

@@ -25,12 +25,10 @@ public class MenuListHolder extends RecyclerView.ViewHolder {
     private LinearLayout itemCount;
     private LinearLayout sharedUsers;
 
-    private View itemView;
     private List list;
 
     public MenuListHolder(View itemView) {
         super(itemView);
-        this.itemView = itemView;
         name = (TextView) itemView.findViewById(R.id.list_name);
         itemCount = (LinearLayout) itemView.findViewById(R.id.layout_list_item_count);
         sharedUsers = (LinearLayout) itemView.findViewById(R.id.layout_list_shared);
