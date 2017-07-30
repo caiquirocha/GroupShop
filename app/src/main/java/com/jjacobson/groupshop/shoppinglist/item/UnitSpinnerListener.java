@@ -19,10 +19,14 @@ public class UnitSpinnerListener implements AdapterView.OnItemSelectedListener {
 
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+        if (adapterView.getCount() == i) {
+            return;
+        }
         String content = adapterView.getItemAtPosition(i).toString();
         if (content == null || content.equals("")) {
             return;
         }
+        System.out.println("selected item is " + content);
         dialog.getItem().setUnit(content);
     }
 

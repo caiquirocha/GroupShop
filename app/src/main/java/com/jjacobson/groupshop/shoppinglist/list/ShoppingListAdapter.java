@@ -23,13 +23,17 @@ public class ShoppingListAdapter extends FirebaseRecyclerAdapter<Item, ShoppingL
     @Override
     public ShoppingListHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View view = inflater.inflate(R.layout.row_shopping_list, parent, false);
+        View view = inflater.inflate(R.layout.row_items_list, parent, false);
         return new ShoppingListHolder(view);
     }
 
 
     @Override
-    protected void populateViewHolder(ShoppingListHolder viewHolder, Item model, int position) {
-
+    protected void populateViewHolder(ShoppingListHolder holder, Item item, int position) {
+        item.setKey(getRef(position).getKey());
+        holder.setName(item.getName());
+        holder.setItemCount(item.getCount());
+        holder.setUnits(item.getUnit());
+        holder.setBoxChecked(item.isPurchased());
     }
 }

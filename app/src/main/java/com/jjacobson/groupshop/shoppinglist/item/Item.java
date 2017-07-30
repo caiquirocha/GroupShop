@@ -12,12 +12,15 @@ import java.util.Date;
 public class Item implements Serializable {
 
     private String name;
-    private long lastEdited;
-    private int count;
     private String unit;
+    private int count;
+    private boolean purchased;
+    private long lastEdited;
+
+    private String key;
 
     public Item() {
-
+        // required for firebase
     }
 
     public String getName() {
@@ -28,17 +31,12 @@ public class Item implements Serializable {
         this.name = name;
     }
 
-    public long getLastEdited() {
-        return lastEdited;
+    public String getUnit() {
+        return unit;
     }
 
-    @Exclude
-    public Date getLastEditedDate() {
-        return new Date(lastEdited);
-    }
-
-    public void setLastEdited(long lastEdited) {
-        this.lastEdited = lastEdited;
+    public void setUnit(String unit) {
+        this.unit = unit;
     }
 
     public int getCount() {
@@ -49,11 +47,35 @@ public class Item implements Serializable {
         this.count = count;
     }
 
-    public String getUnit() {
-        return unit;
+    public boolean isPurchased() {
+        return purchased;
     }
 
-    public void setUnit(String unit) {
-        this.unit = unit;
+    public void setPurchased(boolean purchased) {
+        this.purchased = purchased;
     }
+
+    @Exclude
+    public Date getLastEditedDate() {
+        return new Date(lastEdited);
+    }
+
+    public long getLastEdited() {
+        return lastEdited;
+    }
+
+    public void setLastEdited(long lastEdited) {
+        this.lastEdited = lastEdited;
+    }
+
+    @Exclude
+    public String getKey() {
+        return key;
+    }
+
+    @Exclude
+    public void setKey(String key) {
+        this.key = key;
+    }
+
 }

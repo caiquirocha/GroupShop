@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -11,10 +12,14 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.jjacobson.groupshop.R;
+import com.jjacobson.groupshop.shoppinglist.item.Item;
 
 public class ShoppingListActivity extends AppCompatActivity {
 
+    private DatabaseReference database;
     private List list;
 
     @Override
@@ -26,9 +31,12 @@ public class ShoppingListActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         Intent intent = getIntent();
-        List list = (List) intent.getSerializableExtra("list_extra");
-
+        this.list = (List) intent.getSerializableExtra("list_extra");
         setTitle(list.getName());
+
+        database = FirebaseDatabase.getInstance().getReference()
+                .child("list-items")
+                .child(list.getKey()).getRef();
 
         //ui
         initFab();
@@ -63,8 +71,8 @@ public class ShoppingListActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 // open dialog
-                ItemEditDialog dialog = new ItemEditDialog(ShoppingListActivity.this, null);
-                dialog.open();
+                ItemEditDialog dialog = new ItemEditDialog(view.getContext(), list);
+                dialog.displayCreateItemDialog();
             }
         });
     }
@@ -74,6 +82,11 @@ public class ShoppingListActivity extends AppCompatActivity {
      */
     private void initRecycler() {
         RecyclerView items = (RecyclerView) findViewById(R.id.shopping_list_recycler);
+        ShoppingListAdapter adapter = new ShoppingListAdapter(Item.class, R.layout.row_items_list, ShoppingListHolder.class, database);
+        DividerItemDecoration divider = new DividerItemDecoration(items.getContext(), DividerItemDecoration.VERTICAL);
+        items.addItemDecoration(divider);
         items.setLayoutManager(new LinearLayoutManager(this));
+        items.setAdapter(adapter);
     }
+
 }

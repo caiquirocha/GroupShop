@@ -20,7 +20,7 @@ public class List implements Serializable {
     private String key;
 
     public List() {
-
+        // required for firebase
     }
 
     public String getName() {

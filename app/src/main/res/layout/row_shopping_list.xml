@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:background="@null"
-        android:layout_alignBottom="@id/layout_list_shared"
+        android:layout_alignBottom="@+id/layout_list_shared"
         app:srcCompat="@drawable/ic_more_vert_black"/>
 
     <LinearLayout
