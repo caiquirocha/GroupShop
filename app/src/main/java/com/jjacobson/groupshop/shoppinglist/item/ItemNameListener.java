@@ -3,17 +3,15 @@ package com.jjacobson.groupshop.shoppinglist.item;
 import android.text.Editable;
 import android.text.TextWatcher;
 
-import com.jjacobson.groupshop.shoppinglist.list.ItemEditDialog;
-
 /**
  * Created by Jeremiah on 7/1/2017.
  */
 
 public class ItemNameListener implements TextWatcher {
 
-    private ItemEditDialog dialog;
+    private ItemPropertyDialog dialog;
 
-    public ItemNameListener(ItemEditDialog dialog) {
+    public ItemNameListener(ItemPropertyDialog dialog) {
         this.dialog = dialog;
     }
 

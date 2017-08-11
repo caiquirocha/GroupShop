@@ -4,7 +4,6 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.jjacobson.groupshop.R;
-import com.jjacobson.groupshop.shoppinglist.list.ItemEditDialog;
 
 /**
  * Created by Jeremiah on 6/30/2017.
@@ -12,10 +11,10 @@ import com.jjacobson.groupshop.shoppinglist.list.ItemEditDialog;
 
 public class QuantityButtonListener implements View.OnClickListener {
 
-    private ItemEditDialog dialog;
+    private ItemPropertyDialog dialog;
     private EditText text;
 
-    public QuantityButtonListener(View view, ItemEditDialog dialog) {
+    public QuantityButtonListener(View view, ItemPropertyDialog dialog) {
         this.dialog = dialog;
         text = (EditText) view.findViewById(R.id.number_picker_display);
     }

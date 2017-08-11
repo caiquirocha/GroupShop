@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.jjacobson.groupshop.R;
 import com.jjacobson.groupshop.shoppinglist.item.Item;
+import com.jjacobson.groupshop.shoppinglist.item.ItemPropertyDialog;
 
 /**
  * Created by Jeremiah on 7/12/2017.
@@ -15,6 +16,7 @@ import com.jjacobson.groupshop.shoppinglist.item.Item;
 
 public class ShoppingListHolder extends RecyclerView.ViewHolder {
 
+    private ShoppingListActivity activity;
     private LinearLayout countLayout;
 
     private TextView name;
@@ -22,17 +24,26 @@ public class ShoppingListHolder extends RecyclerView.ViewHolder {
     private TextView units;
     private CheckBox box;
 
-    private List list;
     private Item item;
 
-    public ShoppingListHolder(View itemView) {
+    public ShoppingListHolder(View itemView, ShoppingListActivity activity) {
         super(itemView);
+        this.activity = activity;
         countLayout = (LinearLayout) itemView.findViewById(R.id.layout_item_count);
         name = (TextView) itemView.findViewById(R.id.item_name);
         itemCount = (TextView) itemView.findViewById(R.id.item_count);
         units = (TextView) itemView.findViewById(R.id.item_count_units);
         box = (CheckBox) itemView.findViewById(R.id.checkbox_item);
         initClickListener();
+    }
+
+    /**
+     * Set the item for this holder
+     *
+     * @param item for this holder
+     */
+    public void setItem(Item item) {
+        this.item = item;
     }
 
     /**
@@ -77,31 +88,13 @@ public class ShoppingListHolder extends RecyclerView.ViewHolder {
     }
 
     /**
-     * Set the list for this holder
-     *
-     * @param list for this holder
-     */
-    public void setList(List list) {
-        this.list = list;
-    }
-
-    /**
-     * Set the item for this holder
-     *
-     * @param item for this holder
-     */
-    public void setItem(Item item) {
-        this.item = item;
-    }
-
-    /**
      * Initialize the click listener for the row
      */
     private void initClickListener() {
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ItemEditDialog dialog = new ItemEditDialog(itemView.getContext(), list);
+                ItemPropertyDialog dialog = new ItemPropertyDialog(activity);
                 dialog.displayEditItemDialog(item);
             }
         });

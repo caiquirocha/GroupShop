@@ -16,6 +16,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.jjacobson.groupshop.R;
 import com.jjacobson.groupshop.shoppinglist.item.Item;
+import com.jjacobson.groupshop.shoppinglist.item.ItemPropertyDialog;
 
 public class ShoppingListActivity extends AppCompatActivity {
 
@@ -71,7 +72,7 @@ public class ShoppingListActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 // open dialog
-                ItemEditDialog dialog = new ItemEditDialog(view.getContext(), list);
+                ItemPropertyDialog dialog = new ItemPropertyDialog(ShoppingListActivity.this);
                 dialog.displayCreateItemDialog();
             }
         });
@@ -83,11 +84,29 @@ public class ShoppingListActivity extends AppCompatActivity {
     private void initRecycler() {
         RecyclerView items = (RecyclerView) findViewById(R.id.shopping_list_recycler);
         ShoppingListAdapter adapter = new ShoppingListAdapter(Item.class,
-                R.layout.row_items_list, ShoppingListHolder.class, database, list);
+                R.layout.row_items_list, ShoppingListHolder.class, database, this);
         DividerItemDecoration divider = new DividerItemDecoration(items.getContext(), DividerItemDecoration.VERTICAL);
         items.addItemDecoration(divider);
         items.setLayoutManager(new LinearLayoutManager(this));
         items.setAdapter(adapter);
+    }
+
+    public List getList() {
+        return list;
+    }
+
+    /**
+     * Save new item to database
+     */
+    public void createItem(Item item) {
+        database.push().setValue(item);
+    }
+
+    /**
+     * Update existing item in the database
+     */
+    public void saveItem(Item item) {
+        database.child(item.getKey()).setValue(item);
     }
 
 }

@@ -1,6 +1,5 @@
-package com.jjacobson.groupshop.shoppinglist.list;
+package com.jjacobson.groupshop.shoppinglist.item;
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
@@ -12,13 +11,8 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.jjacobson.groupshop.R;
-import com.jjacobson.groupshop.shoppinglist.item.Item;
-import com.jjacobson.groupshop.shoppinglist.item.ItemNameListener;
-import com.jjacobson.groupshop.shoppinglist.item.QuantityButtonListener;
-import com.jjacobson.groupshop.shoppinglist.item.UnitSpinnerListener;
+import com.jjacobson.groupshop.shoppinglist.list.ShoppingListActivity;
 
 import java.util.Arrays;
 
@@ -26,16 +20,14 @@ import java.util.Arrays;
  * Created by Jeremiah on 7/11/2017.
  */
 
-public class ItemEditDialog {
+public class ItemPropertyDialog {
 
-    private Context context;
-    private List list;
+    private ShoppingListActivity activity;
     private Item item;
     private View view;
 
-    public ItemEditDialog(Context context, List list) {
-        this.context = context;
-        this.list = list;
+    public ItemPropertyDialog(ShoppingListActivity activity) {
+        this.activity = activity;
     }
 
     /**
@@ -44,12 +36,12 @@ public class ItemEditDialog {
     public void displayCreateItemDialog() {
         this.item = new Item();
         AlertDialog.Builder builder = initItemDialog();
-        builder.setTitle(context.getResources().getString(R.string.new_item_title_text));
+        builder.setTitle(activity.getResources().getString(R.string.new_item_title_text));
         builder.setPositiveButton("Save", new DialogInterface.OnClickListener() {
 
             @Override
             public void onClick(DialogInterface dialog, int whichButton) {
-                createItem();
+                activity.createItem(item);
             }
         });
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -67,7 +59,7 @@ public class ItemEditDialog {
      *
      * @param item to edit
      */
-    public void displayEditItemDialog(Item item) {
+    public void displayEditItemDialog(final Item item) {
         this.item = item;
         AlertDialog.Builder builder = initItemDialog();
         builder.setTitle(item.getName());
@@ -75,7 +67,7 @@ public class ItemEditDialog {
 
             @Override
             public void onClick(DialogInterface dialog, int whichButton) {
-                saveItem();
+                activity.saveItem(item);
             }
         });
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -93,8 +85,8 @@ public class ItemEditDialog {
      * Display the list name dialog prompt
      */
     private AlertDialog.Builder initItemDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        LayoutInflater inflater = LayoutInflater.from(context);
+        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+        LayoutInflater inflater = LayoutInflater.from(activity);
         this.view = inflater.inflate(R.layout.dialog_edit_item, null);
         builder.setView(view);
 
@@ -119,7 +111,7 @@ public class ItemEditDialog {
      */
     private void initSpinner() {
         Spinner spinner = (Spinner) view.findViewById(R.id.unit_spinner);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_dropdown_item) {
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(activity, android.R.layout.simple_spinner_dropdown_item) {
 
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
@@ -138,7 +130,7 @@ public class ItemEditDialog {
 
         };
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        adapter.addAll(Arrays.asList(context.getResources().getStringArray(R.array.units_array)));
+        adapter.addAll(Arrays.asList(activity.getResources().getStringArray(R.array.units_array)));
         spinner.setAdapter(adapter);
         spinner.setSelection(adapter.getCount()); // set the hint the default selection
         spinner.setOnItemSelectedListener(new UnitSpinnerListener(this));
@@ -172,27 +164,6 @@ public class ItemEditDialog {
             ArrayAdapter<String> items = (ArrayAdapter<String>) spinner.getAdapter();
             spinner.setSelection(items.getPosition(item.getUnit()));
         }
-    }
-
-    /**
-     * Save new item to database
-     */
-    private void createItem() {
-        DatabaseReference database = FirebaseDatabase.getInstance().getReference()
-                .child("list-items")
-                .child(list.getKey()).getRef();
-        database.push().setValue(item);
-    }
-
-    /**
-     * Update existing item in the database
-     */
-    private void saveItem() {
-        DatabaseReference database = FirebaseDatabase.getInstance().getReference()
-                .child("list-items")
-                .child(list.getKey())
-                .child(item.getKey()).getRef();
-        database.setValue(item);
     }
 
     /**

@@ -3,17 +3,15 @@ package com.jjacobson.groupshop.shoppinglist.item;
 import android.view.View;
 import android.widget.AdapterView;
 
-import com.jjacobson.groupshop.shoppinglist.list.ItemEditDialog;
-
 /**
  * Created by Jeremiah on 7/1/2017.
  */
 
 public class UnitSpinnerListener implements AdapterView.OnItemSelectedListener {
 
-    private ItemEditDialog dialog;
+    private ItemPropertyDialog dialog;
 
-    public UnitSpinnerListener(ItemEditDialog dialog) {
+    public UnitSpinnerListener(ItemPropertyDialog dialog) {
         this.dialog = dialog;
     }
 
