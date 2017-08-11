@@ -41,6 +41,10 @@ public class ItemPropertyDialog {
 
             @Override
             public void onClick(DialogInterface dialog, int whichButton) {
+                EditText name = (EditText) view.findViewById(R.id.dialog_item_name);
+                if (name.getText().toString().equals("")) {
+                    return;
+                }
                 activity.createItem(item);
             }
         });
@@ -67,6 +71,10 @@ public class ItemPropertyDialog {
 
             @Override
             public void onClick(DialogInterface dialog, int whichButton) {
+                EditText name = (EditText) view.findViewById(R.id.dialog_item_name);
+                if (name.getText().toString().equals("")) {
+                    return;
+                }
                 activity.saveItem(item);
             }
         });
