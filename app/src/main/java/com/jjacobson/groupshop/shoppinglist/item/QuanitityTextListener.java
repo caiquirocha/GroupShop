@@ -27,6 +27,11 @@ public class QuanitityTextListener implements TextWatcher {
 
     @Override
     public void afterTextChanged(Editable editable) {
-        dialog.getItem().setCount(Integer.valueOf(editable.toString()));
+        try {
+            int count = Integer.valueOf(editable.toString());
+            dialog.getItem().setCount(count);
+        } catch (NumberFormatException exception) {
+            // NaN, ignore
+        }
     }
 }
