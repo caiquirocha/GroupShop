@@ -151,6 +151,8 @@ public class ItemPropertyDialog {
     private void initCounter() {
         Button increase = (Button) view.findViewById(R.id.button_increase);
         Button decrease = (Button) view.findViewById(R.id.button_decrease);
+        EditText quantity = (EditText) view.findViewById(R.id.number_picker_display);
+        quantity.addTextChangedListener(new QuanitityTextListener(this));
         QuantityButtonListener listener = new QuantityButtonListener(view, this);
         increase.setOnClickListener(listener);
         decrease.setOnClickListener(listener);

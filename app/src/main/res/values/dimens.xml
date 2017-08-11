@@ -21,8 +21,7 @@
     <dimen name="item_count_margin">5dp</dimen>
 
     <!-- Item Row -->
-    <dimen name="row_item_margin">8dp</dimen>
-
+    <dimen name="row_item_margin">10dp</dimen>
 
     <!-- Profile sign in -->
     <dimen name="sign_in_text_margin_top">6dp</dimen>

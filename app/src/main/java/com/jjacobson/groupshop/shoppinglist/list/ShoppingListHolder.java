@@ -34,6 +34,7 @@ public class ShoppingListHolder extends RecyclerView.ViewHolder {
         itemCount = (TextView) itemView.findViewById(R.id.item_count);
         units = (TextView) itemView.findViewById(R.id.item_count_units);
         box = (CheckBox) itemView.findViewById(R.id.checkbox_item);
+        initCheckListener();
         initClickListener();
     }
 
@@ -88,10 +89,25 @@ public class ShoppingListHolder extends RecyclerView.ViewHolder {
     }
 
     /**
+     * Initialize the checkbox listener for the row
+     */
+    private void initCheckListener() {
+        box.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                item.setPurchased(box.isChecked());
+                activity.saveItem(item);
+            }
+        });
+    }
+
+    /**
      * Initialize the click listener for the row
      */
     private void initClickListener() {
         itemView.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View view) {
                 ItemPropertyDialog dialog = new ItemPropertyDialog(activity);
@@ -99,4 +115,5 @@ public class ShoppingListHolder extends RecyclerView.ViewHolder {
             }
         });
     }
+
 }
