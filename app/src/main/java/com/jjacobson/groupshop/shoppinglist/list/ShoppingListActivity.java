@@ -14,6 +14,7 @@ import android.view.View;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.jjacobson.groupshop.R;
 import com.jjacobson.groupshop.shoppinglist.item.Item;
 import com.jjacobson.groupshop.shoppinglist.item.ItemPropertyDialog;
@@ -83,8 +84,9 @@ public class ShoppingListActivity extends AppCompatActivity {
      */
     private void initRecycler() {
         RecyclerView items = (RecyclerView) findViewById(R.id.shopping_list_recycler);
+        Query query = database.orderByChild("purchased");
         ShoppingListAdapter adapter = new ShoppingListAdapter(Item.class,
-                R.layout.row_items_list, ShoppingListHolder.class, database, this);
+                R.layout.row_items_list, ShoppingListHolder.class, query, this);
         DividerItemDecoration divider = new DividerItemDecoration(items.getContext(), DividerItemDecoration.VERTICAL);
         items.addItemDecoration(divider);
         items.setLayoutManager(new LinearLayoutManager(this));
