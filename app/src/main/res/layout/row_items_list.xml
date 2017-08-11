@@ -3,6 +3,9 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?android:attr/selectableItemBackground"
     android:padding="@dimen/row_item_margin">
 
     <TextView
@@ -36,11 +39,11 @@
             android:id="@+id/item_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingEnd="@dimen/row_item_unit_padding"
+            android:paddingRight="@dimen/row_item_unit_padding"
             android:text="@string/item_list_count_checked"
             android:textColor="@color/colorTextSecondary"
-            android:textSize="@dimen/item_count_font_size"
-            android:paddingRight="@dimen/row_item_unit_padding"
-            android:paddingEnd="@dimen/row_item_unit_padding"/>
+            android:textSize="@dimen/item_count_font_size"/>
 
         <TextView
             android:id="@+id/item_count_units"

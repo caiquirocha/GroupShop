@@ -145,6 +145,7 @@ public class MenuListActivity extends AppCompatActivity {
                     return;
                 }
                 List list = createNewList(name);
+                saveList(list);
                 Intent intent = new Intent(MenuListActivity.this, ShoppingListActivity.class);
                 intent.putExtra("list_extra", list);
                 startActivity(intent);
@@ -161,15 +162,16 @@ public class MenuListActivity extends AppCompatActivity {
     }
 
     /**
-     * Create and save a new list
+     * Create a new list
      *
      * @param name of list
-     * @return the created and saved list
+     * @return the created list
      */
     private List createNewList(String name) {
         List list = new List();
         list.setName(name);
-        saveList(list);
+        String key = database.push().getKey();
+        list.setKey(key);
         return list;
     }
 
@@ -179,6 +181,6 @@ public class MenuListActivity extends AppCompatActivity {
      * @param list to save
      */
     private void saveList(List list) {
-        database.push().setValue(list);
+        database.child(list.getKey()).setValue(list);
     }
 }
