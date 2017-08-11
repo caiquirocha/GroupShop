@@ -23,7 +23,8 @@
     <string name="dialog_sign_in_text">You must sign in to share this list</string>
 
     <!-- Shopping List -->
-    <string name="action_list_settings">Settings</string>
+    <string name="action_delete_purchased">Delete purchased</string>
+    <string name="snackbar_delete_purchased">Deleted %1$d purchased items.</string>
 
     <!-- Add Item -->
     <string name="action_settings">Settings</string>
