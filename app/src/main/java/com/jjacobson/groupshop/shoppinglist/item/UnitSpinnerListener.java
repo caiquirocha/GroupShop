@@ -24,7 +24,6 @@ public class UnitSpinnerListener implements AdapterView.OnItemSelectedListener {
         if (content == null || content.equals("")) {
             return;
         }
-        System.out.println("selected item is " + content);
         dialog.getItem().setUnit(content);
     }
 

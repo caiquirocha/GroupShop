@@ -41,6 +41,7 @@ public class MenuListActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         setTitle(getResources().getString(R.string.title_activity_menu_list));
 
+        // database
         auth = FirebaseAuth.getInstance();
         FirebaseUser user = auth.getCurrentUser();
         database = FirebaseDatabase.getInstance().getReference()

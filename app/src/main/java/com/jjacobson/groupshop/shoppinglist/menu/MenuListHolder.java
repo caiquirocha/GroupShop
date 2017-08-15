@@ -58,12 +58,19 @@ public class MenuListHolder extends RecyclerView.ViewHolder {
      * Set the purchased count display
      *
      * @param checked number of items purchased
+     */
+    public void setCheckedItems(int checked) {
+        TextView checkedView = (TextView) itemCount.findViewById(R.id.list_item_count_checked);
+        checkedView.setText(String.valueOf(checked));
+    }
+
+    /**
+     * Set the purchased count display
+     *
      * @param total   number of items
      */
-    public void setItemCount(int checked, int total) {
-        TextView checkedView = (TextView) itemCount.findViewById(R.id.list_item_count_checked);
+    public void setTotalItems(int total) {
         TextView totalView = (TextView) itemCount.findViewById(R.id.list_item_count_total);
-        checkedView.setText(String.valueOf(checked));
         totalView.setText(String.valueOf(total));
     }
 
@@ -111,4 +118,5 @@ public class MenuListHolder extends RecyclerView.ViewHolder {
             }
         });
     }
+
 }
