@@ -27,8 +27,9 @@
         <activity
             android:name=".sharing.users.UserStatusActivity"
             android:theme="@android:style/Theme.NoDisplay"/>
-        <activity android:name=".sharing.profile.ProfileSetupActivity">
-        </activity>
+        <activity
+            android:name=".sharing.profile.ProfileSetupActivity"
+            android:label="@string/title_activity_profile_setup"/>
     </application>
 
 </manifest>
