@@ -1,4 +1,4 @@
-package com.jjacobson.groupshop.sharing.users.signin;
+package com.jjacobson.groupshop.sharing.users;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,10 +8,11 @@ import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.ErrorCodes;
 import com.firebase.ui.auth.IdpResponse;
 import com.firebase.ui.auth.ResultCodes;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.Arrays;
 
-public class SignInActivity extends AppCompatActivity {
+public class UserStatusActivity extends AppCompatActivity {
 
     private static final int RC_SIGN_IN = 123;
 
@@ -57,7 +58,7 @@ public class SignInActivity extends AppCompatActivity {
      * Sign a user out
      */
     public void signOut() {
-
+        FirebaseAuth.getInstance().signOut();
     }
 
 

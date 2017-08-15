@@ -23,7 +23,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.jjacobson.groupshop.R;
-import com.jjacobson.groupshop.sharing.users.signin.SignInActivity;
+import com.jjacobson.groupshop.sharing.users.UserStatusActivity;
 import com.jjacobson.groupshop.shoppinglist.list.List;
 import com.jjacobson.groupshop.shoppinglist.list.ShoppingListActivity;
 
@@ -112,7 +112,7 @@ public class MenuListActivity extends AppCompatActivity {
             header.findViewById(R.id.button_sign_in).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent intent = new Intent(MenuListActivity.this, SignInActivity.class);
+                    Intent intent = new Intent(MenuListActivity.this, UserStatusActivity.class);
                     intent.putExtra("action_extra", 1);
                     startActivity(intent);
                 }

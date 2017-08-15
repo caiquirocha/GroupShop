@@ -15,7 +15,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.jjacobson.groupshop.R;
-import com.jjacobson.groupshop.sharing.users.signin.SignInActivity;
+import com.jjacobson.groupshop.sharing.users.UserStatusActivity;
 import com.jjacobson.groupshop.shoppinglist.list.List;
 
 /**
@@ -108,7 +108,7 @@ public class ListDropdownListener implements PopupMenu.OnMenuItemClickListener {
 
             @Override
             public void onClick(DialogInterface dialog, int whichButton) {
-                Intent intent = new Intent(context, SignInActivity.class);
+                Intent intent = new Intent(context, UserStatusActivity.class);
                 intent.putExtra("action_extra", 1);
                 context.startActivity(intent);
             }

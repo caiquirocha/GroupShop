@@ -16,6 +16,7 @@
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
+
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
@@ -24,8 +25,10 @@
             android:label="@string/title_activity_list"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
-            android:name=".sharing.users.signin.SignInActivity"
+            android:name=".sharing.users.UserStatusActivity"
             android:theme="@android:style/Theme.NoDisplay"/>
+        <activity android:name=".sharing.profile.ProfileSetupActivity">
+        </activity>
     </application>
 
 </manifest>
