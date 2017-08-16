@@ -80,10 +80,12 @@ public class CompleteButtonListener implements View.OnClickListener {
                 // username available, all checks out
                 activity.getUser().setUsername(username);
                 activity.saveUser();
+                // todo open next page
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {}
+            public void onCancelled(DatabaseError databaseError) {
+            }
         });
     }
 

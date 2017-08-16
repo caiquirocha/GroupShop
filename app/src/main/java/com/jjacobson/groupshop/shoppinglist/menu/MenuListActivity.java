@@ -46,7 +46,7 @@ public class MenuListActivity extends AppCompatActivity {
         FirebaseUser user = auth.getCurrentUser();
         database = FirebaseDatabase.getInstance().getReference()
                 .child("user-lists")
-                .child(user.getUid()).getRef();
+                .child(user.getUid());
 
         //ui
         initDrawer();

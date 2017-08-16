@@ -43,7 +43,7 @@ public class ShoppingListActivity extends AppCompatActivity {
 
         database = FirebaseDatabase.getInstance().getReference()
                 .child("list-items")
-                .child(list.getKey()).getRef();
+                .child(list.getKey());
 
         //ui
         initFab();
