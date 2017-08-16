@@ -13,7 +13,9 @@
     <string name="profile_name_hint">Your Name (Optional)</string>
     <string name="profile_username_hint">Username</string>
     <string name="complete_profile">Complete Profile</string>
-
+    <string name="username_length_error">Username must be at least %1$d characters long</string>
+    <string name="username_character_error">Username contains invalid characters</string>
+    <string name="username_taken">Username is already in use</string>
 
     <!-- Shopping Lists Menu -->
     <string name="new_list_title_text">Name New List</string>

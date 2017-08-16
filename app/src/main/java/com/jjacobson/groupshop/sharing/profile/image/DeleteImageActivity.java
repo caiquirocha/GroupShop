@@ -1,4 +1,4 @@
-package com.jjacobson.groupshop.sharing.profile;
+package com.jjacobson.groupshop.sharing.profile.image;
 
 import android.app.Activity;
 import android.content.Intent;
