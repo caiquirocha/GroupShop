@@ -32,8 +32,9 @@
             android:label="@string/title_activity_profile_setup"/>
         <activity
             android:name=".sharing.profile.image.DeleteImageActivity"
+            android:icon="@drawable/ic_cancel_red"
             android:label="@string/title_activity_delete_image"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@android:style/Theme.NoDisplay">
         </activity>
     </application>
 

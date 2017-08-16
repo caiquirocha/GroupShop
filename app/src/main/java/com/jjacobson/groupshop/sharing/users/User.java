@@ -1,5 +1,7 @@
 package com.jjacobson.groupshop.sharing.users;
 
+import android.graphics.Bitmap;
+
 import com.google.firebase.database.Exclude;
 
 /**
@@ -10,11 +12,17 @@ public class User {
 
     private String username;
     private String name;
+    private String photoUri;
 
     private String key;
+    private Bitmap profileImage;
 
     public User() {
         // required for firebase
+    }
+
+    public String getUsername() {
+        return username;
     }
 
     public void setUsername(String username) {
@@ -29,6 +37,14 @@ public class User {
         this.name = name;
     }
 
+    public String getPhotoUri() {
+        return photoUri;
+    }
+
+    public void setPhotoUri(String photoUri) {
+        this.photoUri = photoUri;
+    }
+
     @Exclude
     public String getKey() {
         return key;
@@ -39,7 +55,14 @@ public class User {
         this.key = key;
     }
 
-    public String getUsername() {
-        return username;
+    @Exclude
+    public Bitmap getProfileImage() {
+        return profileImage;
     }
+
+    @Exclude
+    public void setProfileImage(Bitmap profileImage) {
+        this.profileImage = profileImage;
+    }
+
 }

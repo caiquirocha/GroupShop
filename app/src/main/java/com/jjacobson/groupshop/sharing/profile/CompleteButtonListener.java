@@ -64,7 +64,7 @@ public class CompleteButtonListener implements View.OnClickListener {
 
     private void verifyUsernameAvailable(final String username) {
         Query query = FirebaseDatabase.getInstance().getReference()
-                .child("user-names")
+                .child("user_names")
                 .orderByChild("username_sort")
                 .equalTo(username.toLowerCase());
         query.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -79,7 +79,7 @@ public class CompleteButtonListener implements View.OnClickListener {
                 }
                 // username available, all checks out
                 activity.getUser().setUsername(username);
-                activity.saveUser();
+                activity.saveProfile();
                 // todo open next page
             }
 

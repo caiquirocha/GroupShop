@@ -139,7 +139,7 @@ public class ListDropdownListener implements PopupMenu.OnMenuItemClickListener {
         FirebaseAuth auth = FirebaseAuth.getInstance();
         FirebaseUser user = auth.getCurrentUser();
         DatabaseReference database = FirebaseDatabase.getInstance()
-                .getReference().child("user-lists").child(user.getUid()).child(list.getKey()).getRef();
+                .getReference().child("user_lists").child(user.getUid()).child(list.getKey()).getRef();
         database.setValue(list);
     }
 
@@ -150,7 +150,7 @@ public class ListDropdownListener implements PopupMenu.OnMenuItemClickListener {
         FirebaseAuth auth = FirebaseAuth.getInstance();
         FirebaseUser user = auth.getCurrentUser();
         DatabaseReference database = FirebaseDatabase.getInstance()
-                .getReference().child("user-lists").child(user.getUid()).child(list.getKey()).getRef();
+                .getReference().child("user_lists").child(user.getUid()).child(list.getKey()).getRef();
         database.removeValue();
     }
 
