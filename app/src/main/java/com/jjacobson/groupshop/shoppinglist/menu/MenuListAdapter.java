@@ -42,7 +42,7 @@ public class MenuListAdapter extends FirebaseRecyclerAdapter<List, MenuListHolde
     protected void populateViewHolder(final MenuListHolder holder, final List list, int position) {
         list.setKey(getRef(position).getKey());
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference()
-                .child("list-items")
+                .child("list_items")
                 .child(list.getKey());
 
         checkedQuery = ref.orderByChild("purchased").equalTo(true);

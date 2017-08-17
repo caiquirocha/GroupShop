@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.ImageButton;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -89,7 +90,8 @@ public class ImageButtonListener implements View.OnClickListener {
             activity.getUser().setProfileImage(null);
             return;
         }
-        Glide.with(activity).load(image).asBitmap().centerCrop().into(new BitmapImageViewTarget(imageButton) {
+        RequestOptions options = new RequestOptions().centerCrop();
+        Glide.with(activity).asBitmap().apply(options).load(image).into(new BitmapImageViewTarget(imageButton) {
             @Override
             protected void setResource(Bitmap resource) {
                 activity.getUser().setProfileImage(resource);

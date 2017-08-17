@@ -9,6 +9,13 @@ import com.firebase.ui.auth.ErrorCodes;
 import com.firebase.ui.auth.IdpResponse;
 import com.firebase.ui.auth.ResultCodes;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+import com.jjacobson.groupshop.sharing.profile.ProfileSetupActivity;
 
 import java.util.Arrays;
 
@@ -64,35 +71,47 @@ public class UserStatusActivity extends AppCompatActivity {
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        // RC_SIGN_IN is the request code you passed into startActivityForResult(...) when starting the sign in flow.
         if (requestCode == RC_SIGN_IN) {
             IdpResponse response = IdpResponse.fromResultIntent(data);
-
-            // Successfully signed in
             if (resultCode == ResultCodes.OK) {
-                //     startActivity(MenuListActivity.createIntent(this, response));
-                //     finish();
+                completeSignIn();
                 return;
-            } else {
-                // Sign in failed
-                if (response == null) {
-                    // User pressed back button
-                    // showSnackbar(R.string.sign_in_cancelled);
-                    return;
-                }
+            }
+            // user pressed back
+            if (response == null) {
 
-                if (response.getErrorCode() == ErrorCodes.NO_NETWORK) {
-                    //    showSnackbar(R.string.no_internet_connection);
-                    return;
-                }
+                return;
+            }
+            int error = response.getErrorCode();
+            if (error == ErrorCodes.NO_NETWORK) {
 
-                if (response.getErrorCode() == ErrorCodes.UNKNOWN_ERROR) {
-                    //  showSnackbar(R.string.unknown_error);
-                    return;
+            }
+        }
+    }
+
+    private void completeSignIn() {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        Query query = FirebaseDatabase.getInstance().getReference()
+                .child("user_profiles")
+                .child(user.getUid());
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (!dataSnapshot.exists()) {
+                    createProfile();
                 }
             }
-            // showSnackbar(R.string.unknown_sign_in_response);
-        }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+    }
+
+    private void createProfile() {
+        Intent intent = new Intent(UserStatusActivity.this, ProfileSetupActivity.class);
+        startActivity(intent);
     }
 
 

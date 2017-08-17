@@ -3,12 +3,12 @@ package com.jjacobson.groupshop.shoppinglist.menu;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -18,16 +18,20 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.jjacobson.groupshop.R;
+import com.jjacobson.groupshop.ShopActivity;
 import com.jjacobson.groupshop.sharing.users.UserStatusActivity;
 import com.jjacobson.groupshop.shoppinglist.list.List;
 import com.jjacobson.groupshop.shoppinglist.list.ShoppingListActivity;
 
-public class MenuListActivity extends AppCompatActivity {
+public class MenuListActivity extends ShopActivity {
 
     private FirebaseAuth auth;
     private DatabaseReference database;
@@ -44,14 +48,19 @@ public class MenuListActivity extends AppCompatActivity {
         // database
         auth = FirebaseAuth.getInstance();
         FirebaseUser user = auth.getCurrentUser();
+        if (user == null) {
+            signInAnonymously();
+        }
+
         database = FirebaseDatabase.getInstance().getReference()
                 .child("user_lists")
-                .child(user.getUid());
+                .child(user.getUid()).getRef();
 
         //ui
         initDrawer();
         initFab();
         initRecycler();
+
     }
 
     @Override
@@ -65,6 +74,20 @@ public class MenuListActivity extends AppCompatActivity {
         super.onStart();
         updateUI();
     }
+
+
+    private void signedIn() {
+        FirebaseUser user = auth.getCurrentUser();
+        database = FirebaseDatabase.getInstance().getReference()
+                .child("user_lists")
+                .child(user.getUid()).getRef();
+
+        //ui
+        initDrawer();
+        initFab();
+        initRecycler();
+    }
+
 
     /**
      * Initialize the actionbar drawer

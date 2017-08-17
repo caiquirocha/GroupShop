@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -21,10 +20,11 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.jjacobson.groupshop.R;
+import com.jjacobson.groupshop.ShopActivity;
 import com.jjacobson.groupshop.shoppinglist.item.Item;
 import com.jjacobson.groupshop.shoppinglist.item.ItemPropertyDialog;
 
-public class ShoppingListActivity extends AppCompatActivity {
+public class ShoppingListActivity extends ShopActivity {
 
     private DatabaseReference database;
     private List list;
@@ -42,7 +42,7 @@ public class ShoppingListActivity extends AppCompatActivity {
         setTitle(list.getName());
 
         database = FirebaseDatabase.getInstance().getReference()
-                .child("list-items")
+                .child("list_items")
                 .child(list.getKey());
 
         //ui
