@@ -3,7 +3,6 @@ package com.jjacobson.groupshop.shoppinglist.menu;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
@@ -18,50 +17,42 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.jjacobson.groupshop.BaseActivity;
 import com.jjacobson.groupshop.R;
-import com.jjacobson.groupshop.ShopActivity;
 import com.jjacobson.groupshop.sharing.users.UserStatusActivity;
 import com.jjacobson.groupshop.shoppinglist.list.List;
 import com.jjacobson.groupshop.shoppinglist.list.ShoppingListActivity;
 
-public class MenuListActivity extends ShopActivity {
+public class MenuListActivity extends BaseActivity {
 
-    private FirebaseAuth auth;
     private DatabaseReference database;
+
     private MenuListAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu_list);
+
+        // toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         setTitle(getResources().getString(R.string.title_activity_menu_list));
 
         // database
-        auth = FirebaseAuth.getInstance();
-        FirebaseUser user = auth.getCurrentUser();
-        if (user == null) {
-            signInAnonymously();
-        }
-
         database = FirebaseDatabase.getInstance().getReference()
                 .child("user_lists")
-                .child(user.getUid()).getRef();
+                .child(getUid());
 
         //ui
         initDrawer();
         initFab();
         initRecycler();
-
     }
+
+
 
     @Override
     protected void onDestroy() {
@@ -74,20 +65,6 @@ public class MenuListActivity extends ShopActivity {
         super.onStart();
         updateUI();
     }
-
-
-    private void signedIn() {
-        FirebaseUser user = auth.getCurrentUser();
-        database = FirebaseDatabase.getInstance().getReference()
-                .child("user_lists")
-                .child(user.getUid()).getRef();
-
-        //ui
-        initDrawer();
-        initFab();
-        initRecycler();
-    }
-
 
     /**
      * Initialize the actionbar drawer
@@ -128,10 +105,9 @@ public class MenuListActivity extends ShopActivity {
     }
 
     private void updateUI() {
-        FirebaseUser user = auth.getCurrentUser();
         NavigationView nav = (NavigationView) findViewById(R.id.nav_view);
         View header = nav.getHeaderView(0);
-        if (user == null || user.isAnonymous()) {
+        if (getUser() == null || getUser().isAnonymous()) {
             header.findViewById(R.id.button_sign_in).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

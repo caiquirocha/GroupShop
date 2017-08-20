@@ -1,5 +1,6 @@
 package com.jjacobson.groupshop.sharing.profile;
 
+import android.content.Intent;
 import android.support.design.widget.Snackbar;
 import android.view.View;
 import android.widget.EditText;
@@ -11,6 +12,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.jjacobson.groupshop.R;
 import com.jjacobson.groupshop.sharing.users.User;
+import com.jjacobson.groupshop.shoppinglist.menu.MenuListActivity;
 
 /**
  * Created by Jeremiah on 8/15/2017.
@@ -35,7 +37,7 @@ public class CompleteButtonListener implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
-        User user = activity.getUser();
+        User user = activity.getUserProfile();
         String name = nameText.getText().toString();
         if (!name.equals("")) {
             user.setName(name);
@@ -78,15 +80,20 @@ public class CompleteButtonListener implements View.OnClickListener {
                     return;
                 }
                 // username available, all checks out
-                activity.getUser().setUsername(username);
-                activity.saveProfile();
-                // todo open next page
+                onUsernameAvailable(username);
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
             }
         });
+    }
+
+    private void onUsernameAvailable(String username) {
+        activity.getUserProfile().setUsername(username);
+        activity.saveProfile();
+        Intent intent = new Intent(activity, MenuListActivity.class);
+        activity.startActivity(intent);
     }
 
 }

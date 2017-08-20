@@ -5,19 +5,17 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
 import android.widget.ImageButton;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.jjacobson.groupshop.BaseActivity;
 import com.jjacobson.groupshop.R;
 import com.jjacobson.groupshop.sharing.profile.image.ImageButtonListener;
 import com.jjacobson.groupshop.sharing.users.User;
@@ -25,13 +23,14 @@ import com.jjacobson.groupshop.sharing.users.UsernameModel;
 
 import java.io.ByteArrayOutputStream;
 
-public class ProfileSetupActivity extends AppCompatActivity {
+public class ProfileSetupActivity extends BaseActivity {
 
-    private User user;
-
+    // database references
     private DatabaseReference usernameRef;
     private DatabaseReference userRef;
     private StorageReference storageRef;
+
+    private User user;
 
     private ImageButtonListener imageListener;
 
@@ -42,8 +41,7 @@ public class ProfileSetupActivity extends AppCompatActivity {
         this.user = new User();
 
         // database
-        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-        user.setKey(firebaseUser.getUid());
+        user.setKey(getUid());
         usernameRef = FirebaseDatabase.getInstance().getReference()
                 .child("user_names")
                 .child(user.getKey());
@@ -92,7 +90,7 @@ public class ProfileSetupActivity extends AppCompatActivity {
      *
      * @return user
      */
-    public User getUser() {
+    public User getUserProfile() {
         return user;
     }
 
@@ -127,6 +125,7 @@ public class ProfileSetupActivity extends AppCompatActivity {
         byte[] data = baos.toByteArray();
         UploadTask uploadTask = storageRef.putBytes(data);
         uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                 Uri uri = taskSnapshot.getDownloadUrl();
@@ -134,6 +133,7 @@ public class ProfileSetupActivity extends AppCompatActivity {
                 saveUser();
             }
         }).addOnFailureListener(new OnFailureListener() {
+
             @Override
             public void onFailure(@NonNull Exception e) {
 

@@ -20,19 +20,22 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.jjacobson.groupshop.R;
-import com.jjacobson.groupshop.ShopActivity;
+import com.jjacobson.groupshop.BaseActivity;
 import com.jjacobson.groupshop.shoppinglist.item.Item;
 import com.jjacobson.groupshop.shoppinglist.item.ItemPropertyDialog;
 
-public class ShoppingListActivity extends ShopActivity {
+public class ShoppingListActivity extends BaseActivity {
 
     private DatabaseReference database;
+
     private List list;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
+
+        // toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

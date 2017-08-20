@@ -71,9 +71,9 @@ public class ImageButtonListener implements View.OnClickListener {
     }
 
     private void updateImageDisplay() {
-        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-        Uri profileUri = firebaseUser.getPhotoUrl();
-        for (UserInfo userInfo : firebaseUser.getProviderData()) {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        Uri profileUri = user.getPhotoUrl();
+        for (UserInfo userInfo : user.getProviderData()) {
             if (profileUri == null && userInfo.getPhotoUrl() != null) {
                 profileUri = userInfo.getPhotoUrl();
             }
@@ -87,14 +87,14 @@ public class ImageButtonListener implements View.OnClickListener {
     private void updateImage(Uri image) {
         if (image == null) {
             imageButton.setImageResource(0);
-            activity.getUser().setProfileImage(null);
+            activity.getUserProfile().setProfileImage(null);
             return;
         }
         RequestOptions options = new RequestOptions().centerCrop();
         Glide.with(activity).asBitmap().apply(options).load(image).into(new BitmapImageViewTarget(imageButton) {
             @Override
             protected void setResource(Bitmap resource) {
-                activity.getUser().setProfileImage(resource);
+                activity.getUserProfile().setProfileImage(resource);
                 RoundedBitmapDrawable circularBitmapDrawable =
                         RoundedBitmapDrawableFactory.create(activity.getResources(), resource);
                 circularBitmapDrawable.setCircular(true);
