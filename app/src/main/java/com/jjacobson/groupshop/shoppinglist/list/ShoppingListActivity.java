@@ -16,17 +16,16 @@ import android.view.View;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-import com.jjacobson.groupshop.R;
 import com.jjacobson.groupshop.BaseActivity;
+import com.jjacobson.groupshop.R;
 import com.jjacobson.groupshop.shoppinglist.item.Item;
 import com.jjacobson.groupshop.shoppinglist.item.ItemPropertyDialog;
 
 public class ShoppingListActivity extends BaseActivity {
 
-    private DatabaseReference database;
+    private DatabaseReference itemsRef;
 
     private List list;
 
@@ -44,7 +43,7 @@ public class ShoppingListActivity extends BaseActivity {
         this.list = (List) intent.getSerializableExtra("list_extra");
         setTitle(list.getName());
 
-        database = FirebaseDatabase.getInstance().getReference()
+        this.itemsRef = database.getReference()
                 .child("list_items")
                 .child(list.getKey());
 
@@ -93,7 +92,7 @@ public class ShoppingListActivity extends BaseActivity {
      */
     private void initRecycler() {
         RecyclerView items = (RecyclerView) findViewById(R.id.shopping_list_recycler);
-        Query query = database.orderByChild("purchased");
+        Query query = itemsRef.orderByChild("purchased");
         ShoppingListAdapter adapter = new ShoppingListAdapter(Item.class,
                 R.layout.row_items_list, ShoppingListHolder.class, query, this);
         DividerItemDecoration divider = new DividerItemDecoration(items.getContext(), DividerItemDecoration.VERTICAL);
@@ -106,7 +105,7 @@ public class ShoppingListActivity extends BaseActivity {
      * Delete all purchased items
      */
     private void deletePurchased() {
-        Query query = database.orderByChild("purchased").equalTo(true);
+        Query query = itemsRef.orderByChild("purchased").equalTo(true);
         query.addListenerForSingleValueEvent(new ValueEventListener() {
 
             @Override
@@ -135,14 +134,14 @@ public class ShoppingListActivity extends BaseActivity {
      * Save new item to database
      */
     public void createItem(Item item) {
-        database.push().setValue(item);
+        itemsRef.push().setValue(item);
     }
 
     /**
      * Update existing item in the database
      */
     public void saveItem(Item item) {
-        database.child(item.getKey()).setValue(item);
+        itemsRef.child(item.getKey()).setValue(item);
     }
 
 }

@@ -9,6 +9,8 @@ import com.firebase.ui.auth.ErrorCodes;
 import com.firebase.ui.auth.IdpResponse;
 import com.firebase.ui.auth.ResultCodes;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserInfo;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
@@ -45,12 +47,10 @@ public class UserStatusActivity extends BaseActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        System.out.println("ACTIVITY RESULT CALLED");
         if (requestCode == RC_SIGN_IN) {
             IdpResponse response = IdpResponse.fromResultIntent(data);
             if (resultCode == ResultCodes.OK) {
-                System.out.println("SIGN IN COMPLETED");
-                completeSignIn();
+                onSignInComplete();
                 return;
             }
             // user pressed back
@@ -90,7 +90,7 @@ public class UserStatusActivity extends BaseActivity {
         FirebaseAuth.getInstance().signOut();
     }
 
-    private void completeSignIn() {
+    private void onSignInComplete() {
         Query query = FirebaseDatabase.getInstance().getReference()
                 .child("user_profiles")
                 .child(getUid());
@@ -109,8 +109,12 @@ public class UserStatusActivity extends BaseActivity {
         });
     }
 
+    /**
+     * Create a newly registered users profile
+     */
     private void createProfile() {
         User user = new User();
+        user.setKey(getUser().getUid());
 
         String displayName = getUserDisplayName();
         if (displayName != null) {
@@ -122,21 +126,58 @@ public class UserStatusActivity extends BaseActivity {
             user.setEmail(email);
         }
 
-
-
-        user.setName();
+        Uri photo = getUserPhoto();
+        if (photo != null) {
+            user.setPhotoUri(photo.toString());
+        }
+        Intent intent = new Intent(this, UserSaveActivity.class);
+        intent.putExtra("user_extra", user);
+        startActivity(intent);
+        finish();
     }
 
+    /**
+     * Get a users display name
+     * @return the users display name
+     */
     private String getUserDisplayName() {
-
+        FirebaseUser user = getUser();
+        String name = user.getDisplayName();
+        for (UserInfo info : user.getProviderData()) {
+            if (name == null && info.getDisplayName() != null) {
+                name = info.getDisplayName();
+            }
+        }
+        return name;
     }
 
+    /**
+     * Get a users email address
+     * @return users email address
+     */
     private String getUserEmail() {
-
+        FirebaseUser user = getUser();
+        String email = user.getEmail();
+        for (UserInfo info : user.getProviderData()) {
+            if (email == null && info.getEmail() != null) {
+                email = info.getEmail();
+            }
+        }
+        return email;
     }
 
+    /**
+     * Get a users photo uri
+     * @return users photo uri
+     */
     private Uri getUserPhoto() {
-
+        FirebaseUser user = getUser();
+        Uri photoUri = user.getPhotoUrl();
+        for (UserInfo info : user.getProviderData()) {
+            if (photoUri == null && user.getPhotoUrl() != null) {
+                photoUri = info.getPhotoUrl();
+            }
+        }
+        return photoUri;
     }
-
 }

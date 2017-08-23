@@ -18,7 +18,6 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.jjacobson.groupshop.BaseActivity;
 import com.jjacobson.groupshop.R;
 import com.jjacobson.groupshop.sharing.users.UserStatusActivity;
@@ -27,7 +26,7 @@ import com.jjacobson.groupshop.shoppinglist.list.ShoppingListActivity;
 
 public class MenuListActivity extends BaseActivity {
 
-    private DatabaseReference database;
+    private DatabaseReference listsRef;
 
     private MenuListAdapter adapter;
 
@@ -42,7 +41,7 @@ public class MenuListActivity extends BaseActivity {
         setTitle(getResources().getString(R.string.title_activity_menu_list));
 
         // database
-        database = FirebaseDatabase.getInstance().getReference()
+        this.listsRef = database.getReference()
                 .child("user_lists")
                 .child(getUid());
 
@@ -51,7 +50,6 @@ public class MenuListActivity extends BaseActivity {
         initFab();
         initRecycler();
     }
-
 
 
     @Override
@@ -96,7 +94,7 @@ public class MenuListActivity extends BaseActivity {
      */
     private void initRecycler() {
         RecyclerView lists = (RecyclerView) findViewById(R.id.menu_list_recycler);
-        MenuListAdapter adapter = new MenuListAdapter(List.class, R.layout.row_shopping_list, MenuListHolder.class, database);
+        MenuListAdapter adapter = new MenuListAdapter(List.class, R.layout.row_shopping_list, MenuListHolder.class, listsRef);
         DividerItemDecoration divider = new DividerItemDecoration(lists.getContext(), DividerItemDecoration.VERTICAL);
         lists.addItemDecoration(divider);
         this.adapter = adapter;
@@ -120,7 +118,7 @@ public class MenuListActivity extends BaseActivity {
             header.findViewById(R.id.drawer_button_view).setVisibility(View.GONE);
             LinearLayout profileLayout = (LinearLayout) header.findViewById(R.id.drawer_profile_view);
             profileLayout.setVisibility(View.VISIBLE);
-            
+
         }
     }
 
@@ -170,7 +168,7 @@ public class MenuListActivity extends BaseActivity {
     private List createNewList(String name) {
         List list = new List();
         list.setName(name);
-        String key = database.push().getKey();
+        String key = listsRef.push().getKey();
         list.setKey(key);
         return list;
     }
@@ -181,6 +179,6 @@ public class MenuListActivity extends BaseActivity {
      * @param list to save
      */
     private void saveList(List list) {
-        database.child(list.getKey()).setValue(list);
+        listsRef.child(list.getKey()).setValue(list);
     }
 }

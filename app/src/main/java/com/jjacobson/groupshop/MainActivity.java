@@ -9,11 +9,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
 import com.jjacobson.groupshop.shoppinglist.menu.MenuListActivity;
 
 /**
@@ -31,8 +26,6 @@ public class MainActivity extends BaseActivity {
         auth = FirebaseAuth.getInstance();
         if (auth.getCurrentUser() == null) {
             signInAnonymously();
-        } else {
-            verifyProfile();
         }
     }
 
@@ -51,29 +44,6 @@ public class MainActivity extends BaseActivity {
                 } else {
 
                 }
-            }
-        });
-    }
-
-    private void verifyProfile() {
-        Query query = FirebaseDatabase.getInstance().getReference()
-                .child("user_profiles")
-                .child(getUid());
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if (!dataSnapshot.exists()) {
-                    Intent intent = new Intent(MainActivity.this, ProfileSetupActivity.class);
-                    startActivity(intent);
-                    finish();
-                } else {
-                    onAuthSuccess();
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
             }
         });
     }
