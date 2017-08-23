@@ -19,7 +19,6 @@ import com.jjacobson.groupshop.BaseActivity;
 import com.jjacobson.groupshop.R;
 import com.jjacobson.groupshop.sharing.profile.image.ImageButtonListener;
 import com.jjacobson.groupshop.sharing.users.User;
-import com.jjacobson.groupshop.sharing.users.UsernameModel;
 
 import java.io.ByteArrayOutputStream;
 

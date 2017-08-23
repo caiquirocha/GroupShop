@@ -120,7 +120,7 @@ public class MenuListActivity extends BaseActivity {
             header.findViewById(R.id.drawer_button_view).setVisibility(View.GONE);
             LinearLayout profileLayout = (LinearLayout) header.findViewById(R.id.drawer_profile_view);
             profileLayout.setVisibility(View.VISIBLE);
-            // todo populate profile
+            
         }
     }
 

@@ -14,7 +14,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-import com.jjacobson.groupshop.sharing.profile.ProfileSetupActivity;
 import com.jjacobson.groupshop.shoppinglist.menu.MenuListActivity;
 
 /**
@@ -66,6 +65,7 @@ public class MainActivity extends BaseActivity {
                 if (!dataSnapshot.exists()) {
                     Intent intent = new Intent(MainActivity.this, ProfileSetupActivity.class);
                     startActivity(intent);
+                    finish();
                 } else {
                     onAuthSuccess();
                 }

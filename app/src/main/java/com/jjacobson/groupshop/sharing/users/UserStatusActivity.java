@@ -1,6 +1,7 @@
 package com.jjacobson.groupshop.sharing.users;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import com.firebase.ui.auth.AuthUI;
@@ -14,7 +15,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.jjacobson.groupshop.BaseActivity;
-import com.jjacobson.groupshop.sharing.profile.ProfileSetupActivity;
 
 import java.util.Arrays;
 
@@ -42,6 +42,29 @@ public class UserStatusActivity extends BaseActivity {
         finish();
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        System.out.println("ACTIVITY RESULT CALLED");
+        if (requestCode == RC_SIGN_IN) {
+            IdpResponse response = IdpResponse.fromResultIntent(data);
+            if (resultCode == ResultCodes.OK) {
+                System.out.println("SIGN IN COMPLETED");
+                completeSignIn();
+                return;
+            }
+            // user pressed back
+            if (response == null) {
+
+                return;
+            }
+            int error = response.getErrorCode();
+            if (error == ErrorCodes.NO_NETWORK) {
+
+            }
+        }
+    }
+
     /**
      * Sign a user in
      */
@@ -67,27 +90,6 @@ public class UserStatusActivity extends BaseActivity {
         FirebaseAuth.getInstance().signOut();
     }
 
-
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == RC_SIGN_IN) {
-            IdpResponse response = IdpResponse.fromResultIntent(data);
-            if (resultCode == ResultCodes.OK) {
-                completeSignIn();
-                return;
-            }
-            // user pressed back
-            if (response == null) {
-
-                return;
-            }
-            int error = response.getErrorCode();
-            if (error == ErrorCodes.NO_NETWORK) {
-
-            }
-        }
-    }
-
     private void completeSignIn() {
         Query query = FirebaseDatabase.getInstance().getReference()
                 .child("user_profiles")
@@ -108,9 +110,33 @@ public class UserStatusActivity extends BaseActivity {
     }
 
     private void createProfile() {
-        Intent intent = new Intent(UserStatusActivity.this, ProfileSetupActivity.class);
-        startActivity(intent);
+        User user = new User();
+
+        String displayName = getUserDisplayName();
+        if (displayName != null) {
+            user.setName(displayName);
+        }
+
+        String email = getUserEmail();
+        if (email != null) {
+            user.setEmail(email);
+        }
+
+
+
+        user.setName();
     }
 
+    private String getUserDisplayName() {
+
+    }
+
+    private String getUserEmail() {
+
+    }
+
+    private Uri getUserPhoto() {
+
+    }
 
 }
