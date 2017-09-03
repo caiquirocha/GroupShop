@@ -33,6 +33,9 @@
             android:name=".sharing.users.SignInActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
+            android:name=".sharing.users.UserSaveActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
             android:name=".sharing.profile.image.DeleteImageActivity"
             android:icon="@drawable/ic_cancel_red"
             android:label="@string/title_activity_delete_image"

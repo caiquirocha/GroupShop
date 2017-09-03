@@ -1,17 +1,24 @@
 package com.jjacobson.groupshop.sharing.users;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.jjacobson.groupshop.BaseActivity;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 
 /**
  * Created by Jeremiah on 8/22/2017.
@@ -28,9 +35,6 @@ public class UserSaveActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Intent intent = getIntent();
-        this.user = (User) intent.getSerializableExtra("user_extra");
-
         this.profileRef = database.getReference()
                 .child("user_profiles")
                 .child(getUser().getUid());
@@ -40,19 +44,37 @@ public class UserSaveActivity extends BaseActivity {
                 .child(getUser().getUid())
                 .child("profile_image.jpg");
 
+        Intent intent = getIntent();
+        this.user = (User) intent.getSerializableExtra("user_extra");
         saveUser();
     }
 
     private void saveUser() {
         if (user.getPhotoUri() != null) {
-            saveImage(Uri.parse(user.getPhotoUri()));
+            try {
+                saveImage(Uri.parse(user.getPhotoUri()));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         } else {
             saveInfo();
         }
     }
 
-    private void saveImage(Uri photo) {
-        UploadTask task = photoRef.putFile(photo);
+    private void saveImage(Uri photo) throws IOException {
+        Glide.with(this).asBitmap().load(photo).into(new SimpleTarget<Bitmap>() {
+            @Override
+            public void onResourceReady(Bitmap resource, Transition<? super Bitmap> transition) {
+                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                resource.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+                byte[] data = stream.toByteArray();
+                onUploadReady(data);
+            }
+        });
+    }
+
+    private void onUploadReady(byte[] data) {
+        UploadTask task = photoRef.putBytes(data);
         task.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
 
             @Override
@@ -68,7 +90,6 @@ public class UserSaveActivity extends BaseActivity {
 
             }
         });
-
     }
 
     private void saveInfo() {
