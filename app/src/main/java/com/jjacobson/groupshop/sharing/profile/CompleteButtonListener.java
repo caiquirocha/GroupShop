@@ -8,10 +8,10 @@ import android.view.View;
 
 class CompleteButtonListener implements View.OnClickListener {
 
-
+    private EditProfileActivity activity;
 
     public CompleteButtonListener(EditProfileActivity activity) {
-
+        this.activity = activity;
     }
 
     @Override

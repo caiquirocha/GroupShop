@@ -8,7 +8,6 @@ import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.ErrorCodes;
 import com.firebase.ui.auth.IdpResponse;
 import com.firebase.ui.auth.ResultCodes;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserInfo;
 import com.google.firebase.database.DataSnapshot;
@@ -20,28 +19,14 @@ import com.jjacobson.groupshop.BaseActivity;
 
 import java.util.Arrays;
 
-public class UserStatusActivity extends BaseActivity {
+public class SignInActivity extends BaseActivity {
 
     private static final int RC_SIGN_IN = 123;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        Intent intent = getIntent();
-        int action = intent.getIntExtra("action_extra", -1);
-        switch (action) {
-            case 1:
-                signIn();
-                break;
-            case 0:
-                signOut();
-                break;
-            case -1:
-            default:
-                break;
-        }
-        finish();
+        signIn();
     }
 
     @Override
@@ -55,7 +40,7 @@ public class UserStatusActivity extends BaseActivity {
             }
             // user pressed back
             if (response == null) {
-
+                finish();
                 return;
             }
             int error = response.getErrorCode();
@@ -83,14 +68,8 @@ public class UserStatusActivity extends BaseActivity {
                 RC_SIGN_IN);
     }
 
-    /**
-     * Sign a user out
-     */
-    public void signOut() {
-        FirebaseAuth.getInstance().signOut();
-    }
-
     private void onSignInComplete() {
+        System.out.println("Sign in is completed");
         Query query = FirebaseDatabase.getInstance().getReference()
                 .child("user_profiles")
                 .child(getUid());

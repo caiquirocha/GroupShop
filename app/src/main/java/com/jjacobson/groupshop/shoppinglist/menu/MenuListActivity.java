@@ -20,7 +20,7 @@ import android.widget.LinearLayout;
 import com.google.firebase.database.DatabaseReference;
 import com.jjacobson.groupshop.BaseActivity;
 import com.jjacobson.groupshop.R;
-import com.jjacobson.groupshop.sharing.users.UserStatusActivity;
+import com.jjacobson.groupshop.sharing.users.SignInActivity;
 import com.jjacobson.groupshop.shoppinglist.list.List;
 import com.jjacobson.groupshop.shoppinglist.list.ShoppingListActivity;
 
@@ -109,8 +109,7 @@ public class MenuListActivity extends BaseActivity {
             header.findViewById(R.id.button_sign_in).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent intent = new Intent(MenuListActivity.this, UserStatusActivity.class);
-                    intent.putExtra("action_extra", 1);
+                    Intent intent = new Intent(MenuListActivity.this, SignInActivity.class);
                     startActivity(intent);
                 }
             });

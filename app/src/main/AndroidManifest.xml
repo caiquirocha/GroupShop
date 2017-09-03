@@ -30,8 +30,8 @@
             android:label="@string/title_activity_list"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
-            android:name=".sharing.users.UserStatusActivity"
-            android:theme="@android:style/Theme.NoDisplay"/>
+            android:name=".sharing.users.SignInActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".sharing.profile.image.DeleteImageActivity"
             android:icon="@drawable/ic_cancel_red"
