@@ -28,6 +28,9 @@ public class UserSaveActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        Intent intent = getIntent();
+        this.user = (User) intent.getSerializableExtra("user_extra");
+
         this.profileRef = database.getReference()
                 .child("user_profiles")
                 .child(getUser().getUid());
@@ -37,8 +40,6 @@ public class UserSaveActivity extends BaseActivity {
                 .child(getUser().getUid())
                 .child("profile_image.jpg");
 
-        Intent intent = getIntent();
-        this.user = (User) intent.getSerializableExtra("user_extra");
         saveUser();
     }
 

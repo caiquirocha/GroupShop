@@ -8,7 +8,6 @@ import android.support.annotation.Nullable;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
 import com.jjacobson.groupshop.shoppinglist.menu.MenuListActivity;
 
 /**
@@ -17,15 +16,14 @@ import com.jjacobson.groupshop.shoppinglist.menu.MenuListActivity;
 
 public class MainActivity extends BaseActivity {
 
-    private FirebaseAuth auth;
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        auth = FirebaseAuth.getInstance();
         if (auth.getCurrentUser() == null) {
             signInAnonymously();
+        } else {
+            onAuthSuccess();
         }
     }
 

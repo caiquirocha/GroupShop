@@ -10,12 +10,14 @@
     <string name="title_activity_profile_setup">Profile Setup</string>
 
     <!-- Profile Setup -->
-    <string name="profile_name_hint">Your Name (Optional)</string>
-    <string name="profile_username_hint">Username</string>
+    <string name="profile_name_hint">Your Name</string>
+    <string name="profile_email_hint">Email Address</string>
     <string name="save_profile">Update Profile</string>
     <string name="username_length_error">Username must be at least %1$d characters long</string>
     <string name="username_character_error">Username contains invalid characters</string>
     <string name="username_taken">Username is already in use</string>
+    <string name="title_activity_delete_image">Delete Image</string>
+
 
     <!-- Shopping Lists Menu -->
     <string name="new_list_title_text">Name New List</string>
@@ -62,7 +64,6 @@
     <string name="nav_sign_out">Sign Out</string>
     <string name="sign_in_button_text">Sign In or Register</string>
     <string name="sign_in_text">Share lists and sync them between devices</string>
-    <string name="title_activity_delete_image">DeleteImageActivity</string>
 
 
 </resources>

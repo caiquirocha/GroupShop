@@ -29,8 +29,6 @@ public class ImageButtonListener implements View.OnClickListener {
     public ImageButtonListener(EditProfileActivity activity) {
         this.activity = activity;
         this.imageButton = (ImageButton) activity.findViewById(R.id.profile_image_button);
-
-        updateImageDisplay();
     }
 
     @Override
@@ -41,7 +39,7 @@ public class ImageButtonListener implements View.OnClickListener {
 
         Intent chooserIntent = Intent.createChooser(galleryIntent, "Select Source");
         // add delete option
-        if (imageSet) {
+        if (isImageSet()) {
             Intent removeImageIntent = new Intent(activity, DeleteImageActivity.class);
             chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, new Intent[]{removeImageIntent});
         }
@@ -50,38 +48,35 @@ public class ImageButtonListener implements View.OnClickListener {
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_CODE) {
-            if (data.hasExtra("remove_image") && imageSet) {
+            if (data.hasExtra("remove_image") && isImageSet()) {
                 updateImage(null);
                 return;
             }
             Uri selectedImage = data.getData();
             updateImage(selectedImage);
-            this.imageSet = true;
         }
     }
 
-    public boolean isImageSet() {
-        return imageSet;
-    }
-
-
-    private void updateImage(Uri image) {
+    public void updateImage(Uri image) {
+        activity.getUserProfile().setPhotoUri(image == null ? null : image.toString());
         if (image == null) {
             imageButton.setImageResource(0);
-            activity.getUserProfile().setProfileImage(null);
             return;
         }
         RequestOptions options = new RequestOptions().centerCrop();
         Glide.with(activity).asBitmap().apply(options).load(image).into(new BitmapImageViewTarget(imageButton) {
             @Override
             protected void setResource(Bitmap resource) {
-                activity.getUserProfile().setProfileImage(resource);
                 RoundedBitmapDrawable circularBitmapDrawable =
                         RoundedBitmapDrawableFactory.create(activity.getResources(), resource);
                 circularBitmapDrawable.setCircular(true);
                 imageButton.setImageDrawable(circularBitmapDrawable);
             }
         });
+    }
+
+    private boolean isImageSet() {
+        return activity.getUserProfile().getPhotoUri() != null;
     }
 
 }

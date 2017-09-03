@@ -1,31 +1,29 @@
 package com.jjacobson.groupshop.sharing.profile;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v7.app.ActionBar;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
+import com.google.firebase.database.ValueEventListener;
 import com.jjacobson.groupshop.BaseActivity;
 import com.jjacobson.groupshop.R;
 import com.jjacobson.groupshop.sharing.profile.image.ImageButtonListener;
 import com.jjacobson.groupshop.sharing.users.User;
 
-import java.io.ByteArrayOutputStream;
-
 public class EditProfileActivity extends BaseActivity {
 
+    private User user;
+
+    // ui
+    private EditText nameText;
+    private EditText emailText;
     private ImageButtonListener imageListener;
 
     @Override
@@ -34,11 +32,30 @@ public class EditProfileActivity extends BaseActivity {
         setContentView(R.layout.activity_profile_edit);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        User user = database.getReference()
+        Intent intent = getIntent();
+        String key = intent.getStringExtra("user_key");
 
         // ui
+        nameText = (EditText) findViewById(R.id.profile_name_text);
+        emailText = (EditText) findViewById(R.id.profile_email_text);
         initCompleteButton();
         initProfileImageButton();
+
+        DatabaseReference reference = database.getReference()
+                .child("user_profiles")
+                .child(key);
+        reference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                user = dataSnapshot.getValue(User.class);
+                onUserLoaded();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     @Override
@@ -58,12 +75,31 @@ public class EditProfileActivity extends BaseActivity {
         imageListener.onActivityResult(requestCode, resultCode, data);
     }
 
+    /**
+     * Called when the users profile is loaded
+     */
+    private void onUserLoaded() {
+        String name = user.getName();
+        if (name != null && !name.equals("")) {
+            nameText.setText(name);
+        }
+
+        String email = user.getEmail();
+        if (email != null && !email.equals("")) {
+            emailText.setText(email);
+        }
+
+        String uri = user.getPhotoUri();
+        if (uri != null && !uri.equals("")) {
+            imageListener.updateImage(Uri.parse(uri));
+        }
+    }
 
     /**
      * Initialize the complete button
      */
     private void initCompleteButton() {
-        Button button = (Button) findViewById(R.id.button_complete_profile);
+        Button button = (Button) findViewById(R.id.button_save_profile);
         button.setOnClickListener(new CompleteButtonListener(this));
     }
 
@@ -84,6 +120,5 @@ public class EditProfileActivity extends BaseActivity {
     public User getUserProfile() {
         return user;
     }
-
 
 }
