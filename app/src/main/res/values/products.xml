@@ -2,35 +2,6 @@
 <resources>
     <string-array name="products">
 
-        <item>Beef broth</item>
-        <item>Bouillon cubes</item>
-        <item>Brown sugar</item>
-        <item>Canned beans</item>
-        <item>Canned brown bread</item>
-        <item>Canned chicken</item>
-        <item>Canned evaporated milk</item>
-        <item>Canned fruits</item>
-        <item>Canned tuna</item>
-        <item>Canned vegetables</item>
-        <item>Cashews</item>
-        <item>Cereals</item>
-        <item>Chicken broth</item>
-        <item>Couscous</item>
-        <item>Crackers</item>
-        <item>Dried beef</item>
-        <item>Dried fruits</item>
-        <item>Dried mushrooms</item>
-        <item>Dried pesto mixes</item>
-        <item>Olive oil</item>
-        <item>Pasta</item>
-        <item>Powdered milk</item>
-        <item>Salsa</item>
-        <item>Sugars</item>
-        <item>Syrups</item>
-        <item>Tea</item>
-        <item>Vegetable broth</item>
-        <item>Vinegar</item>
-
         <!-- Products -->
         <item>Allspice (Whole)</item>
         <item>Anise</item>
@@ -41,7 +12,6 @@
         <item>Asparagus</item>
         <item>Aspirin</item>
         <item>Avocados</item>
-        <item>BBQ sauce</item>
         <item>Baby food</item>
         <item>Baby formula</item>
         <item>Baby wipes</item>
@@ -59,32 +29,45 @@
         <item>Batteries - C</item>
         <item>Batteries - D</item>
         <item>Bay leaves</item>
+        <item>BBQ sauce</item>
         <item>Beans</item>
         <item>Beef boullion</item>
+        <item>Beef broth</item>
         <item>Beer</item>
         <item>Biscuit mix</item>
         <item>Black pepper</item>
         <item>Black peppercorns</item>
         <item>Bleach</item>
+        <item>Bouillon cubes</item>
         <item>Bread - french</item>
         <item>Bread - wheat</item>
         <item>Bread - white</item>
         <item>Broccoli</item>
+        <item>Brown sugar</item>
         <item>Butter</item>
         <item>Cabbage</item>
         <item>Cake mix</item>
         <item>Candy</item>
+        <item>Canned beans</item>
+        <item>Canned brown bread</item>
+        <item>Canned chicken</item>
+        <item>Canned evaporated milk</item>
+        <item>Canned fruits</item>
+        <item>Canned tuna</item>
+        <item>Canned vegetables</item>
         <item>Cantaloupe</item>
         <item>Caraway (Whole)</item>
         <item>Cardamom (Powder)</item>
         <item>Cardamom (Whole)</item>
         <item>Carrots</item>
+        <item>Cashews</item>
         <item>Cat food</item>
         <item>Cat litter</item>
         <item>Cauliflower</item>
         <item>Cayenne pepper</item>
         <item>Celery</item>
         <item>Cereal</item>
+        <item>Cereals</item>
         <item>Charcoal</item>
         <item>Cheese - american</item>
         <item>Cheese - blue</item>
@@ -102,6 +85,7 @@
         <item>Chicken - strips</item>
         <item>Chicken - whole</item>
         <item>Chicken boullion</item>
+        <item>Chicken broth</item>
         <item>Chili (Powder)</item>
         <item>Chili</item>
         <item>Chips - potato</item>
@@ -120,19 +104,21 @@
         <item>Coffee</item>
         <item>Cookies</item>
         <item>Coriander seeds</item>
-        <item>Corn</item>
         <item>Corn meal</item>
         <item>Corn on the cob</item>
-        <item>Cornstarch</item>
         <item>Corn syrup</item>
+        <item>Corn</item>
+        <item>Cornstarch</item>
         <item>Corriander (Powder)</item>
         <item>Cottage cheese</item>
+        <item>Couscous</item>
         <item>Crackers - ritz</item>
         <item>Crackers - saltine</item>
         <item>Crackers</item>
+        <item>Crackers</item>
         <item>Cream - whipping</item>
-        <item>Cream</item>
         <item>Cream of tartar</item>
+        <item>Cream</item>
         <item>Crushed red pepper</item>
         <item>Cucumber</item>
         <item>Cumin (Ground)</item>
@@ -148,23 +134,27 @@
         <item>Diapers</item>
         <item>Dish scrubber</item>
         <item>Dog food</item>
+        <item>Dried beef</item>
+        <item>Dried fruits</item>
+        <item>Dried mushrooms</item>
+        <item>Dried pesto mixes</item>
         <item>Eggs</item>
         <item>English muffins</item>
         <item>Fabric softener</item>
         <item>Feminine hygiene</item>
         <item>Fennel seeds</item>
         <item>Film</item>
-        <item>Fish</item>
         <item>Fish sticks</item>
+        <item>Fish</item>
         <item>Flour</item>
         <item>Formula</item>
         <item>Freezer bags</item>
         <item>French fries</item>
         <item>Garam Masala</item>
         <item>Garbage bags</item>
-        <item>Garlic</item>
-        <item>Garlic</item>
         <item>Garlic salt</item>
+        <item>Garlic</item>
+        <item>Garlic</item>
         <item>Ginger (Fresh)</item>
         <item>Ginger (Ground)</item>
         <item>Glass cleaner</item>
@@ -175,16 +165,16 @@
         <item>Green peppers</item>
         <item>Greeting card</item>
         <item>Ham</item>
-        <item>Hamburger</item>
         <item>Hamburger buns</item>
+        <item>Hamburger</item>
         <item>Hash browns</item>
         <item>Honey</item>
         <item>Horseradish</item>
         <item>Hotdog buns</item>
         <item>Hotdogs</item>
         <item>Ibuprofen</item>
-        <item>Ice cubes</item>
         <item>Ice cream</item>
+        <item>Ice cubes</item>
         <item>Italian seasoning</item>
         <item>Jalapenos</item>
         <item>Jam</item>
@@ -198,12 +188,12 @@
         <item>Lemon grass</item>
         <item>Lemon juice</item>
         <item>Lemon pepper</item>
-        <item>Lemons</item>
         <item>Lemon salt</item>
+        <item>Lemons</item>
         <item>Lettuce</item>
+        <item>Light bulbs - 100w</item>
         <item>Light bulbs - 60w</item>
         <item>Light bulbs - 75w</item>
-        <item>Light bulbs - 100w</item>
         <item>Light bulbs - compact</item>
         <item>Limes</item>
         <item>Lunch meat</item>
@@ -218,8 +208,8 @@
         <item>Molasses</item>
         <item>Mouthwash</item>
         <item>Mushrooms</item>
-        <item>Mustard</item>
         <item>Mustard seeds</item>
+        <item>Mustard</item>
         <item>Napkins</item>
         <item>Nectarines</item>
         <item>Noodles</item>
@@ -227,9 +217,10 @@
         <item>Oatmeal</item>
         <item>Oil - olive</item>
         <item>Oil - vegetable</item>
+        <item>Olive oil</item>
         <item>Olives</item>
-        <item>Onions</item>
         <item>Onion salt</item>
+        <item>Onions</item>
         <item>Orange juice - frozen</item>
         <item>Orange juice</item>
         <item>Oranges</item>
@@ -243,6 +234,7 @@
         <item>Paprika (Sweet)</item>
         <item>Paprika</item>
         <item>Parsley</item>
+        <item>Pasta</item>
         <item>Peaches</item>
         <item>Peanut butter</item>
         <item>Peanuts</item>
@@ -262,6 +254,7 @@
         <item>Pork &amp; beans</item>
         <item>Pork chops</item>
         <item>Potatoes</item>
+        <item>Powdered milk</item>
         <item>Prescription</item>
         <item>Pretzels</item>
         <item>Pudding</item>
@@ -282,6 +275,7 @@
         <item>Sage</item>
         <item>Salad dressing</item>
         <item>Salmon</item>
+        <item>Salsa</item>
         <item>Salt, Kosher</item>
         <item>Salt, Rock</item>
         <item>Salt, Sea</item>
@@ -307,14 +301,14 @@
         <item>Sour cream</item>
         <item>Soy sauce</item>
         <item>Spaghetti - frozen</item>
-        <item>Spaghetti</item>
         <item>Spaghetti sauce</item>
+        <item>Spaghetti</item>
         <item>Sponge</item>
         <item>Squash</item>
         <item>Sriracha sauce</item>
         <item>Star anise seeds</item>
-        <item>Steak</item>
         <item>Steak sauce</item>
+        <item>Steak</item>
         <item>Storage bags</item>
         <item>Strawberries</item>
         <item>String beans</item>
@@ -324,21 +318,24 @@
         <item>Sugar - brown</item>
         <item>Sugar - powdered</item>
         <item>Sugar - white</item>
+        <item>Sugars</item>
         <item>Sumac</item>
         <item>Sweet potato</item>
         <item>Syrup</item>
+        <item>Syrups</item>
         <item>Taco shells</item>
         <item>Tamarind</item>
         <item>Tarragon</item>
         <item>Tea bags</item>
+        <item>Tea</item>
         <item>Thai lemongrass (Powder)</item>
         <item>Thyme</item>
         <item>Tissues</item>
         <item>Toilet bowl cleaner</item>
         <item>Toilet paper</item>
-        <item>Tomato</item>
         <item>Tomato paste</item>
         <item>Tomato sauce</item>
+        <item>Tomato</item>
         <item>Toothpaste</item>
         <item>Tortillas - corn</item>
         <item>Tortillas - flour</item>
@@ -349,6 +346,8 @@
         <item>Turmeric (Powder)</item>
         <item>Vacuum bags</item>
         <item>Vanilla extract</item>
+        <item>Vegetable broth</item>
+        <item>Vinegar</item>
         <item>Vitamins</item>
         <item>Waffles</item>
         <item>Water</item>
@@ -442,5 +441,6 @@
         <item>Thyme</item>
         <item>Turmeric (Powder)</item>
         <item>Vanilla extract</item>
+
     </string-array>
 </resources>
