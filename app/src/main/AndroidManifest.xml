@@ -41,6 +41,8 @@
             android:label="@string/title_activity_delete_image"
             android:theme="@android:style/Theme.NoDisplay">
         </activity>
+        <activity android:name=".settings.SettingsActivity">
+        </activity>
     </application>
 
 </manifest>

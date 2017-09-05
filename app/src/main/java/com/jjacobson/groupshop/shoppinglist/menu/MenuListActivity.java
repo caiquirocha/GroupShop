@@ -74,6 +74,9 @@ public class MenuListActivity extends BaseActivity {
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
+
+        NavigationView drawerOptions = (NavigationView) findViewById(R.id.drawer_nav_view);
+        drawerOptions.setNavigationItemSelectedListener(new DrawerItemListener(this));
     }
 
     /**
