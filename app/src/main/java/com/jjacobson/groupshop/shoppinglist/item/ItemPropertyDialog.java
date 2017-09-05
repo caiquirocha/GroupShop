@@ -5,7 +5,9 @@ import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -55,6 +57,7 @@ public class ItemPropertyDialog {
             }
         });
         AlertDialog dialog = builder.create();
+        dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         dialog.show();
     }
 
@@ -86,6 +89,7 @@ public class ItemPropertyDialog {
         });
         updateUI();
         AlertDialog dialog = builder.create();
+        dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         dialog.show();
     }
 
@@ -110,8 +114,11 @@ public class ItemPropertyDialog {
      * Initialize name edit text
      */
     private void initNameText() {
-        EditText name = (EditText) view.findViewById(R.id.dialog_item_name);
+        AutoCompleteTextView name = (AutoCompleteTextView) view.findViewById(R.id.dialog_item_name);
         name.addTextChangedListener(new ItemNameListener(this));
+        name.setAdapter(new ArrayAdapter<>(activity.getApplicationContext(),
+                android.R.layout.simple_dropdown_item_1line,
+                Arrays.asList(activity.getResources().getStringArray(R.array.products))));
     }
 
     /**
