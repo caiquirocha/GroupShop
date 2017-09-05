@@ -106,7 +106,7 @@ public class MenuListActivity extends BaseActivity {
     }
 
     private void updateUI() {
-        NavigationView nav = (NavigationView) findViewById(R.id.nav_view);
+        NavigationView nav = (NavigationView) findViewById(R.id.drawer_nav_view);
         View header = nav.getHeaderView(0);
         if (getUser() == null || getUser().isAnonymous()) {
             header.findViewById(R.id.button_sign_in).setOnClickListener(new View.OnClickListener() {
