@@ -26,12 +26,13 @@ public class DrawerItemListener implements NavigationView.OnNavigationItemSelect
         switch (item.getItemId()) {
             case R.id.nav_drawer_edit_profile:
                 Intent editProfileIntent = new Intent(activity, EditProfileActivity.class);
+                editProfileIntent.putExtra("user_key", activity.getUid());
                 activity.startActivity(editProfileIntent);
-                return true;
+                break;
             case R.id.nav_drawer_settings:
                 Intent settingsIntent = new Intent(activity, SettingsActivity.class);
                 activity.startActivity(settingsIntent);
-                return true;
+                break;
         }
         return false;
     }

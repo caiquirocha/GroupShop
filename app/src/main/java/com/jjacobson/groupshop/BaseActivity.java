@@ -28,11 +28,11 @@ public class BaseActivity extends AppCompatActivity {
         this.storage = FirebaseStorage.getInstance();
     }
 
-    protected String getUid() {
+    public String getUid() {
         return auth.getCurrentUser().getUid();
     }
 
-    protected FirebaseUser getUser() {
+    public FirebaseUser getUser() {
         return auth.getCurrentUser();
     }
 

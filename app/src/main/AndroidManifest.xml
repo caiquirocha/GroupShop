@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.jjacobson.groupshop">
 
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
     <application
         android:name=".GroupShop"
         android:allowBackup="true"
@@ -32,6 +34,8 @@
         <activity
             android:name=".sharing.users.SignInActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".sharing.profile.EditProfileActivity"/>
         <activity
             android:name=".sharing.users.UserSaveActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
