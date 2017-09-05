@@ -2,9 +2,6 @@
 <resources>
     <string-array name="products">
 
-        <!-- Essentials -->
-        <item>Applesauce</item>
-        <item>Baking soda</item>
         <item>Beef broth</item>
         <item>Bouillon cubes</item>
         <item>Brown sugar</item>
@@ -18,24 +15,16 @@
         <item>Cashews</item>
         <item>Cereals</item>
         <item>Chicken broth</item>
-        <item>Coffee</item>
         <item>Couscous</item>
         <item>Crackers</item>
         <item>Dried beef</item>
         <item>Dried fruits</item>
         <item>Dried mushrooms</item>
         <item>Dried pesto mixes</item>
-        <item>Flour</item>
-        <item>Graham crackers</item>
-        <item>Honey</item>
         <item>Olive oil</item>
         <item>Pasta</item>
-        <item>Peanut butter</item>
-        <item>Peanuts</item>
         <item>Powdered milk</item>
-        <item>Raisins</item>
         <item>Salsa</item>
-        <item>Sesame seeds</item>
         <item>Sugars</item>
         <item>Syrups</item>
         <item>Tea</item>
@@ -304,7 +293,6 @@
         <item>Savory</item>
         <item>Scallops</item>
         <item>Screws</item>
-        <item>Sesame seeds</item>
         <item>Shampoo</item>
         <item>Shaving cream</item>
         <item>Shichimi</item>
