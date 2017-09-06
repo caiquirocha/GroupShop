@@ -26,6 +26,7 @@ public class EditProfileActivity extends BaseActivity {
     private EditText nameText;
     private EditText emailText;
     private ImageButtonListener imageListener;
+    private CompleteButtonListener completeListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +75,8 @@ public class EditProfileActivity extends BaseActivity {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         imageListener.onActivityResult(requestCode, resultCode, data);
+        completeListener.onActivityResult(requestCode, resultCode, data);
+
     }
 
     @Override
@@ -107,7 +110,8 @@ public class EditProfileActivity extends BaseActivity {
      */
     private void initCompleteButton() {
         Button button = (Button) findViewById(R.id.button_save_profile);
-        button.setOnClickListener(new CompleteButtonListener(this));
+        this.completeListener = new CompleteButtonListener(this);
+        button.setOnClickListener(completeListener);
     }
 
     /**

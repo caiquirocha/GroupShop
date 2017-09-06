@@ -65,5 +65,8 @@
     <string name="nav_drawer_edit_profile">Edit Profile</string>
     <string name="nav_drawer_settings">Settings</string>
 
+    <!-- Progress Dialogs -->
+    <string name="dialog_update_profile">Updating profile...</string>
+    <string name="dialog_create_profile">Creating profile...</string>
 
 </resources>

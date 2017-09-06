@@ -1,5 +1,6 @@
 package com.jjacobson.groupshop.sharing.users;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -12,10 +13,13 @@ import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-import com.jjacobson.groupshop.BaseActivity;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -24,7 +28,7 @@ import java.io.IOException;
  * Created by Jeremiah on 8/22/2017.
  */
 
-public class UserSaveActivity extends BaseActivity {
+public class UserSaveActivity extends Activity {
 
     private DatabaseReference profileRef;
     private StorageReference photoRef;
@@ -35,13 +39,17 @@ public class UserSaveActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
         this.profileRef = database.getReference()
                 .child("user_profiles")
-                .child(getUser().getUid());
+                .child(user.getUid());
 
         this.photoRef = storage.getReference()
                 .child("profile_images")
-                .child(getUser().getUid())
+                .child(user.getUid())
                 .child("profile_image.jpg");
 
         Intent intent = getIntent();
@@ -109,6 +117,9 @@ public class UserSaveActivity extends BaseActivity {
     }
 
     private void onSaveComplete() {
+        Intent resultIntent = new Intent();
+        resultIntent.putExtra("save_success", true);
+        setResult(Activity.RESULT_OK, resultIntent);
         finish();
     }
 }

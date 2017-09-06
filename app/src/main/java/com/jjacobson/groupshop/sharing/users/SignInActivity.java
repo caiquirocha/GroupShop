@@ -1,5 +1,7 @@
 package com.jjacobson.groupshop.sharing.users;
 
+import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -16,12 +18,17 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.jjacobson.groupshop.BaseActivity;
+import com.jjacobson.groupshop.R;
+import com.jjacobson.groupshop.util.DialogUtil;
 
 import java.util.Arrays;
 
 public class SignInActivity extends BaseActivity {
 
     private static final int RC_SIGN_IN = 123;
+    private static final int SAVE_REQUEST_CODE = 23;
+
+    private ProgressDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +55,15 @@ public class SignInActivity extends BaseActivity {
 
             }
         }
+        // create profile complete
+        if (resultCode == Activity.RESULT_OK && requestCode == SAVE_REQUEST_CODE) {
+            if (data.hasExtra("save_success")) {
+                dialog.hide();
+                finish();
+            } else {
+
+            }
+        }
     }
 
     /**
@@ -69,7 +85,6 @@ public class SignInActivity extends BaseActivity {
     }
 
     private void onSignInComplete() {
-        System.out.println("Sign in is completed");
         Query query = FirebaseDatabase.getInstance().getReference()
                 .child("user_profiles")
                 .child(getUid());
@@ -79,6 +94,8 @@ public class SignInActivity extends BaseActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (!dataSnapshot.exists()) {
                     createProfile();
+                } else {
+                    finish();
                 }
             }
 
@@ -109,10 +126,13 @@ public class SignInActivity extends BaseActivity {
         if (photo != null) {
             user.setPhotoUri(photo.toString());
         }
+        // create profile dialog
+        dialog = DialogUtil.createProgressDialog(this, getResources().getString(R.string.dialog_create_profile));
+        dialog.show();
+
         Intent intent = new Intent(this, UserSaveActivity.class);
         intent.putExtra("user_extra", user);
-        startActivity(intent);
-        finish();
+        startActivityForResult(intent, SAVE_REQUEST_CODE);
     }
 
     /**
