@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.jjacobson.groupshop">
 
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 
     <application
         android:name=".GroupShop"
@@ -25,8 +25,7 @@
         <activity
             android:name=".shoppinglist.menu.MenuListActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".shoppinglist.list.ShoppingListActivity"
             android:label="@string/title_activity_list"
@@ -43,10 +42,10 @@
             android:name=".sharing.profile.image.DeleteImageActivity"
             android:icon="@drawable/ic_cancel_red"
             android:label="@string/title_activity_delete_image"
-            android:theme="@android:style/Theme.NoDisplay">
-        </activity>
-        <activity android:name=".settings.SettingsActivity">
-        </activity>
+            android:theme="@android:style/Theme.NoDisplay"/>
+        <activity
+            android:name=".settings.SettingsActivity"
+            android:label="@string/title_activity_settings"/>
     </application>
 
 </manifest>

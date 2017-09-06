@@ -8,6 +8,7 @@
     <string name="title_activity_menu_list">Shopping Lists</string>
     <string name="title_activity_add_item">AddItemActivity</string>
     <string name="title_activity_profile_setup">Profile Setup</string>
+    <string name="title_activity_settings">Settings</string>
 
     <!-- Profile Setup -->
     <string name="profile_name_hint">Your Name</string>
