@@ -83,7 +83,6 @@ public class ImageButtonListener implements View.OnClickListener {
     }
 
     public void updateImage(Uri image) {
-        System.out.println("Called update image");
         activity.getUserProfile().setPhotoUri(image == null ? null : image.toString());
         if (image == null) {
             imageButton.setImageResource(0);

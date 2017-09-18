@@ -47,7 +47,6 @@ class CompleteButtonListener implements View.OnClickListener {
         activity.startActivityForResult(intent, SAVE_REQUEST_CODE);
     }
 
-
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == Activity.RESULT_OK && requestCode == SAVE_REQUEST_CODE) {
             if (data.hasExtra("save_success")) {

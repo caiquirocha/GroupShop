@@ -45,24 +45,27 @@
         android:visibility="gone">
 
         <ImageView
-            android:id="@+id/imageView"
+            android:id="@+id/drawer_profile_image"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:adjustViewBounds="true"
             android:paddingTop="@dimen/nav_header_vertical_spacing"
             app:srcCompat="@drawable/ic_account_circle_grey"/>
 
         <TextView
+            android:id="@+id/drawer_profile_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_weight="0"
             android:paddingTop="@dimen/nav_header_vertical_spacing"
-            android:text="Android Studio"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/drawer_profile_email"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="android.studio@android.com"/>
+            android:layout_weight="0"/>
 
     </LinearLayout>
 

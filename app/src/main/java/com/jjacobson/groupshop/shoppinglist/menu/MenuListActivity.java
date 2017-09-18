@@ -2,9 +2,12 @@ package com.jjacobson.groupshop.shoppinglist.menu;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
@@ -15,12 +18,22 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.BitmapImageViewTarget;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.jjacobson.groupshop.BaseActivity;
 import com.jjacobson.groupshop.R;
 import com.jjacobson.groupshop.sharing.users.SignInActivity;
+import com.jjacobson.groupshop.sharing.users.User;
 import com.jjacobson.groupshop.shoppinglist.list.List;
 import com.jjacobson.groupshop.shoppinglist.list.ShoppingListActivity;
 
@@ -29,6 +42,10 @@ public class MenuListActivity extends BaseActivity {
     private DatabaseReference listsRef;
 
     private MenuListAdapter adapter;
+
+    private ValueEventListener userListener;
+    private Query userQuery;
+    private User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +61,23 @@ public class MenuListActivity extends BaseActivity {
         this.listsRef = database.getReference()
                 .child("user_lists")
                 .child(getUid());
+
+        // user query
+        this.userQuery = database.getReference()
+                .child("user_profiles")
+                .child(getUid());
+        userListener = userQuery.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                user = dataSnapshot.getValue(User.class);
+                updateUI();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
         //ui
         initDrawer();
@@ -117,10 +151,33 @@ public class MenuListActivity extends BaseActivity {
                 }
             });
         } else {
+            if (user == null) {
+                return;
+            }
             header.findViewById(R.id.drawer_button_view).setVisibility(View.GONE);
             LinearLayout profileLayout = (LinearLayout) header.findViewById(R.id.drawer_profile_view);
             profileLayout.setVisibility(View.VISIBLE);
 
+            // populate profile properties
+            final ImageView imageView = (ImageView) findViewById(R.id.drawer_profile_image);
+            final TextView nameText = (TextView) findViewById(R.id.drawer_profile_name);
+            final TextView emailText = (TextView) findViewById(R.id.drawer_profile_email);
+            nameText.setText(user.getName());
+            emailText.setText(user.getEmail());
+            RequestOptions options = new RequestOptions().centerCrop();
+            if (user.getPhotoUri() != null) {
+                Glide.with(this).asBitmap().apply(options).load(user.getPhotoUri()).into(new BitmapImageViewTarget(imageView) {
+                    @Override
+                    protected void setResource(Bitmap resource) {
+                        RoundedBitmapDrawable circularBitmapDrawable =
+                                RoundedBitmapDrawableFactory.create(getResources(), resource);
+                        circularBitmapDrawable.setCircular(true);
+                        imageView.setImageDrawable(circularBitmapDrawable);
+                    }
+                });
+            } else {
+                imageView.setImageDrawable(getResources().getDrawable(R.drawable.ic_account_circle_grey));
+            }
         }
     }
 
