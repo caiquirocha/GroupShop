@@ -21,14 +21,17 @@ import com.jjacobson.groupshop.shoppinglist.list.ShoppingListActivity;
 
 public class MenuListHolder extends RecyclerView.ViewHolder {
 
+    private MenuListActivity activity;
+
     private TextView name;
     private LinearLayout itemCount;
     private LinearLayout sharedUsers;
 
     private List list;
 
-    public MenuListHolder(View itemView) {
+    public MenuListHolder(View itemView, MenuListActivity activity) {
         super(itemView);
+        this.activity = activity;
         name = (TextView) itemView.findViewById(R.id.list_name);
         itemCount = (LinearLayout) itemView.findViewById(R.id.layout_list_item_count);
         sharedUsers = (LinearLayout) itemView.findViewById(R.id.layout_list_shared);
@@ -113,7 +116,7 @@ public class MenuListHolder extends RecyclerView.ViewHolder {
             public void onClick(View view) {
                 PopupMenu menu = new PopupMenu(itemView.getContext(), button);
                 menu.getMenuInflater().inflate(R.menu.menu_shopping_list_row, menu.getMenu());
-                menu.setOnMenuItemClickListener(new ListDropdownListener(itemView.getContext(), list));
+                menu.setOnMenuItemClickListener(new ListDropdownListener(activity, list));
                 menu.show();
             }
         });

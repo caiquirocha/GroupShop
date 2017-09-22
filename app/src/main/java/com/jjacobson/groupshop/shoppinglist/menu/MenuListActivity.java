@@ -90,6 +90,7 @@ public class MenuListActivity extends BaseActivity {
     protected void onDestroy() {
         super.onDestroy();
         adapter.cleanup();
+        userQuery.removeEventListener(userListener);
     }
 
     @Override
@@ -131,7 +132,7 @@ public class MenuListActivity extends BaseActivity {
      */
     private void initRecycler() {
         RecyclerView lists = (RecyclerView) findViewById(R.id.menu_list_recycler);
-        MenuListAdapter adapter = new MenuListAdapter(List.class, R.layout.row_shopping_list, MenuListHolder.class, listsRef);
+        MenuListAdapter adapter = new MenuListAdapter(this, List.class, R.layout.row_shopping_list, MenuListHolder.class, listsRef);
         DividerItemDecoration divider = new DividerItemDecoration(lists.getContext(), DividerItemDecoration.VERTICAL);
         lists.addItemDecoration(divider);
         this.adapter = adapter;
@@ -237,7 +238,15 @@ public class MenuListActivity extends BaseActivity {
      *
      * @param list to save
      */
-    private void saveList(List list) {
+    public void saveList(List list) {
         listsRef.child(list.getKey()).setValue(list);
+    }
+
+
+    /**
+     * Delete the list
+     */
+    public void deleteList(List list) {
+        listsRef.child(list.getKey()).getRef().removeValue();
     }
 }

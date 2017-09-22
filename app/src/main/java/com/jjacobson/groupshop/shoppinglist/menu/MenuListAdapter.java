@@ -22,20 +22,23 @@ import com.jjacobson.groupshop.shoppinglist.list.List;
 
 public class MenuListAdapter extends FirebaseRecyclerAdapter<List, MenuListHolder> {
 
+    private MenuListActivity activity;
     private Query checkedQuery;
     private Query totalQuery;
     private ValueEventListener checkedListener;
     private ValueEventListener totalListener;
 
-    public MenuListAdapter(Class<List> modelClass, @LayoutRes int modelLayout, Class<MenuListHolder> viewHolderClass, Query query) {
+    public MenuListAdapter(MenuListActivity activity, Class<List> modelClass, @LayoutRes int modelLayout,
+                           Class<MenuListHolder> viewHolderClass, Query query) {
         super(modelClass, modelLayout, viewHolderClass, query);
+        this.activity = activity;
     }
 
     @Override
     public MenuListHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View view = inflater.inflate(R.layout.row_shopping_list, parent, false);
-        return new MenuListHolder(view);
+        return new MenuListHolder(view, activity);
     }
 
     @Override
