@@ -13,9 +13,6 @@ import java.util.ArrayList;
 public class List implements Serializable {
 
     private String name;
-    private int totalItems;
-    private int checkedItems;
-
     private ArrayList<Item> items;
     private String key;
 
@@ -29,22 +26,6 @@ public class List implements Serializable {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public int getTotalItems() {
-        return totalItems;
-    }
-
-    public void setTotalItems(int totalItems) {
-        this.totalItems = totalItems;
-    }
-
-    public int getCheckedItems() {
-        return checkedItems;
-    }
-
-    public void setCheckedItems(int checkedItems) {
-        this.checkedItems = checkedItems;
     }
 
     @Exclude

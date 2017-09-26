@@ -22,6 +22,7 @@ import com.jjacobson.groupshop.BaseActivity;
 import com.jjacobson.groupshop.R;
 import com.jjacobson.groupshop.shoppinglist.item.Item;
 import com.jjacobson.groupshop.shoppinglist.item.ItemPropertyDialog;
+import com.jjacobson.groupshop.util.ShareUtil;
 
 public class ShoppingListActivity extends BaseActivity {
 
@@ -63,6 +64,10 @@ public class ShoppingListActivity extends BaseActivity {
         int id = item.getItemId();
         if (id == android.R.id.home) {
             finish();
+            return true;
+        }
+        if (id == R.id.action_list_share) {
+            ShareUtil.shareList(this, list);
             return true;
         }
         if (id == R.id.action_list_delete_purchased) {

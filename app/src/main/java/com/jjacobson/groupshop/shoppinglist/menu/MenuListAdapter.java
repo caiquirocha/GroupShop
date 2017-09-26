@@ -20,15 +20,17 @@ import com.jjacobson.groupshop.shoppinglist.list.List;
  * Created by Jeremiah on 7/12/2017.
  */
 
-public class MenuListAdapter extends FirebaseRecyclerAdapter<List, MenuListHolder> {
+public class MenuListAdapter extends FirebaseRecyclerAdapter<Object, MenuListHolder> {
 
     private MenuListActivity activity;
     private Query checkedQuery;
     private Query totalQuery;
+    private Query listQuery;
     private ValueEventListener checkedListener;
     private ValueEventListener totalListener;
+    private ValueEventListener listListener;
 
-    public MenuListAdapter(MenuListActivity activity, Class<List> modelClass, @LayoutRes int modelLayout,
+    public MenuListAdapter(MenuListActivity activity, Class<Object> modelClass, @LayoutRes int modelLayout,
                            Class<MenuListHolder> viewHolderClass, Query query) {
         super(modelClass, modelLayout, viewHolderClass, query);
         this.activity = activity;
@@ -42,8 +44,28 @@ public class MenuListAdapter extends FirebaseRecyclerAdapter<List, MenuListHolde
     }
 
     @Override
-    protected void populateViewHolder(final MenuListHolder holder, final List list, int position) {
-        list.setKey(getRef(position).getKey());
+    protected void populateViewHolder(final MenuListHolder holder, final Object value, int position) {
+        final String key = getRef(position).getKey();
+        listQuery = FirebaseDatabase.getInstance().getReference()
+                .child("lists")
+                .child(key);
+        listListener = listQuery.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                List list = dataSnapshot.getValue(List.class);
+                list.setKey(key);
+                onListLoaded(holder, list);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+
+    private void onListLoaded(final MenuListHolder holder, final List list) {
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference()
                 .child("list_items")
                 .child(list.getKey());
@@ -53,8 +75,7 @@ public class MenuListAdapter extends FirebaseRecyclerAdapter<List, MenuListHolde
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 long count = dataSnapshot.getChildrenCount();
-                list.setCheckedItems((int) count);
-                holder.setCheckedItems(list.getCheckedItems());
+                holder.setCheckedItems((int) count);
             }
 
             @Override
@@ -67,8 +88,7 @@ public class MenuListAdapter extends FirebaseRecyclerAdapter<List, MenuListHolde
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 long count = dataSnapshot.getChildrenCount();
-                list.setTotalItems((int) count);
-                holder.setTotalItems(list.getTotalItems());
+                holder.setTotalItems((int) count);
             }
 
             @Override
@@ -78,6 +98,7 @@ public class MenuListAdapter extends FirebaseRecyclerAdapter<List, MenuListHolde
         holder.setList(list);
         holder.setName(list.getName());
         // todo check shared users row
+
     }
 
     @Override
@@ -85,5 +106,6 @@ public class MenuListAdapter extends FirebaseRecyclerAdapter<List, MenuListHolde
         super.cleanup();
         checkedQuery.removeEventListener(checkedListener);
         totalQuery.removeEventListener(totalListener);
+        listQuery.removeEventListener(listListener);
     }
 }

@@ -29,7 +29,6 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onStart() {
         super.onStart();
-
     }
 
     private void signInAnonymously() {

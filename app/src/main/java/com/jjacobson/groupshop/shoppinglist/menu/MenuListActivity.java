@@ -3,7 +3,9 @@ package com.jjacobson.groupshop.shoppinglist.menu;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
@@ -25,11 +27,16 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.appinvite.FirebaseAppInvite;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
+import com.google.firebase.dynamiclinks.PendingDynamicLinkData;
 import com.jjacobson.groupshop.BaseActivity;
 import com.jjacobson.groupshop.R;
 import com.jjacobson.groupshop.sharing.users.SignInActivity;
@@ -39,6 +46,7 @@ import com.jjacobson.groupshop.shoppinglist.list.ShoppingListActivity;
 
 public class MenuListActivity extends BaseActivity {
 
+    private DatabaseReference userListsRef;
     private DatabaseReference listsRef;
 
     private MenuListAdapter adapter;
@@ -58,9 +66,13 @@ public class MenuListActivity extends BaseActivity {
         setTitle(getResources().getString(R.string.title_activity_menu_list));
 
         // database
-        this.listsRef = database.getReference()
+        this.userListsRef = database.getReference()
                 .child("user_lists")
                 .child(getUid());
+
+        // database
+        this.listsRef = database.getReference()
+                .child("lists");
 
         // user query
         this.userQuery = database.getReference()
@@ -79,12 +91,13 @@ public class MenuListActivity extends BaseActivity {
             }
         });
 
+        checkForInvitation();
+
         //ui
         initDrawer();
         initFab();
         initRecycler();
     }
-
 
     @Override
     protected void onDestroy() {
@@ -97,6 +110,35 @@ public class MenuListActivity extends BaseActivity {
     protected void onStart() {
         super.onStart();
         updateUI();
+    }
+
+    private void checkForInvitation() {
+        FirebaseDynamicLinks.getInstance().getDynamicLink(getIntent())
+                .addOnSuccessListener(this, new OnSuccessListener<PendingDynamicLinkData>() {
+                    @Override
+                    public void onSuccess(PendingDynamicLinkData data) {
+                        if (data == null) {
+                         //   Log.d(TAG, "getInvitation: no data");
+                            return;
+                        }
+                        // Get the deep link
+                        Uri deepLink = data.getLink();
+
+                        // Extract invite
+                        FirebaseAppInvite invite = FirebaseAppInvite.getInvitation(data);
+                        if (invite != null) {
+                            String invitationId = invite.getInvitationId();
+                        }
+
+                        // Handle the deep link
+                        // ...
+                    }
+                })
+                .addOnFailureListener(this, new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                    }
+                });
     }
 
     /**
@@ -132,7 +174,8 @@ public class MenuListActivity extends BaseActivity {
      */
     private void initRecycler() {
         RecyclerView lists = (RecyclerView) findViewById(R.id.menu_list_recycler);
-        MenuListAdapter adapter = new MenuListAdapter(this, List.class, R.layout.row_shopping_list, MenuListHolder.class, listsRef);
+        Query listsQuery = userListsRef.orderByChild("visible").equalTo(true);
+        MenuListAdapter adapter = new MenuListAdapter(this, Object.class, R.layout.row_shopping_list, MenuListHolder.class, listsQuery);
         DividerItemDecoration divider = new DividerItemDecoration(lists.getContext(), DividerItemDecoration.VERTICAL);
         lists.addItemDecoration(divider);
         this.adapter = adapter;
@@ -228,7 +271,8 @@ public class MenuListActivity extends BaseActivity {
     private List createNewList(String name) {
         List list = new List();
         list.setName(name);
-        String key = listsRef.push().getKey();
+        String key = userListsRef.push().getKey();
+        userListsRef.child(key).child("visible").setValue(true);
         list.setKey(key);
         return list;
     }
@@ -242,11 +286,10 @@ public class MenuListActivity extends BaseActivity {
         listsRef.child(list.getKey()).setValue(list);
     }
 
-
     /**
      * Delete the list
      */
     public void deleteList(List list) {
-        listsRef.child(list.getKey()).getRef().removeValue();
+        userListsRef.child(list.getKey()).child("visible").setValue(false);
     }
 }

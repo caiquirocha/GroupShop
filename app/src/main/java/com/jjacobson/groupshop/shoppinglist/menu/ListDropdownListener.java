@@ -1,10 +1,6 @@
 package com.jjacobson.groupshop.shoppinglist.menu;
 
-import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.net.Uri;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.PopupMenu;
 import android.view.LayoutInflater;
@@ -13,17 +9,9 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.dynamiclinks.DynamicLink;
-import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
-import com.google.firebase.dynamiclinks.ShortDynamicLink;
 import com.jjacobson.groupshop.R;
 import com.jjacobson.groupshop.shoppinglist.list.List;
+import com.jjacobson.groupshop.util.ShareUtil;
 
 /**
  * Created by Jeremiah on 7/27/2017.
@@ -46,7 +34,7 @@ public class ListDropdownListener implements PopupMenu.OnMenuItemClickListener {
                 displayEditDialog();
                 break;
             case R.id.action_list_share:
-                shareList();
+                ShareUtil.shareList(activity, list);
                 break;
             case R.id.action_list_delete:
                 activity.deleteList(list);
@@ -67,7 +55,7 @@ public class ListDropdownListener implements PopupMenu.OnMenuItemClickListener {
         final EditText text = (EditText) dialogView.findViewById(R.id.dialog_list_name);
         text.setText(list.getName());
 
-        builder.setTitle(context.getResources().getString(R.string.rename_list_title_text));
+        builder.setTitle(activity.getResources().getString(R.string.rename_list_title_text));
         builder.setPositiveButton("Done", new DialogInterface.OnClickListener() {
 
             @Override
@@ -89,47 +77,6 @@ public class ListDropdownListener implements PopupMenu.OnMenuItemClickListener {
         AlertDialog dialog = builder.create();
         dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         dialog.show();
-    }
-
-
-    /**
-     * Share the list
-     */
-    private void shareList() {
-        String id = "";
-        String link = activity.getResources().getString(R.string.share_link) + id;
-        Task<ShortDynamicLink> shortLinkTask = FirebaseDynamicLinks.getInstance().createDynamicLink()
-                .setLink(Uri.parse(link))
-                .setDynamicLinkDomain(activity.getResources().getString(R.string.dynamic_link))
-                .setAndroidParameters(
-                        new DynamicLink.AndroidParameters.Builder("com.jjacobson.groupshop")
-                                .setMinimumVersion(125)
-                                .build())
-                .buildShortDynamicLink()
-                .addOnCompleteListener(new OnCompleteListener<ShortDynamicLink>() {
-                    @Override
-                    public void onComplete(@NonNull Task<ShortDynamicLink> task) {
-                        if (task.isSuccessful()) {
-                            // Short link created
-                            Uri shortLink = task.getResult().getShortLink();
-                            onShareLinkReady(shortLink);
-                        } else {
-                            // Error
-                        }
-                    }
-                });
-    }
-
-    /**
-     * Share link ready
-     */
-    private void onShareLinkReady(Uri link) {
-        Intent shareIntent = new Intent();
-        String msg = "Hey, check this out: " + link;
-        shareIntent.setAction(Intent.ACTION_SEND);
-        shareIntent.putExtra(Intent.EXTRA_TEXT, msg);
-        shareIntent.setType("text/plain");
-        activity.startActivity(shareIntent);
     }
 
     /**
