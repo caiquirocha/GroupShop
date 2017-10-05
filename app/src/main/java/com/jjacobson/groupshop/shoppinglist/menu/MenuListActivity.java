@@ -118,7 +118,7 @@ public class MenuListActivity extends BaseActivity {
                     @Override
                     public void onSuccess(PendingDynamicLinkData data) {
                         if (data == null) {
-                         //   Log.d(TAG, "getInvitation: no data");
+                            //   Log.d(TAG, "getInvitation: no data");
                             return;
                         }
                         // Get the deep link
@@ -250,6 +250,33 @@ public class MenuListActivity extends BaseActivity {
                 Intent intent = new Intent(MenuListActivity.this, ShoppingListActivity.class);
                 intent.putExtra("list_extra", list);
                 startActivity(intent);
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int whichButton) {
+            }
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+
+    /**
+     * Display the list name dialog prompt
+     */
+    private void displayInviteReceivedDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.dialog_invite_received, null);
+        builder.setView(dialogView);
+        builder.setTitle(getResources().getString(R.string.invite_received_title_text));
+
+        builder.setPositiveButton("Done", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int whichButton) {
             }
         });
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {

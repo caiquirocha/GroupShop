@@ -4,14 +4,12 @@ import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
 
 import com.jjacobson.groupshop.R;
 import com.jjacobson.groupshop.shoppinglist.list.ShoppingListActivity;
@@ -126,29 +124,11 @@ public class ItemPropertyDialog {
      */
     private void initSpinner() {
         Spinner spinner = (Spinner) view.findViewById(R.id.unit_spinner);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(activity, android.R.layout.simple_spinner_dropdown_item) {
-
-            @Override
-            public View getView(int position, View convertView, ViewGroup parent) {
-                View view = super.getView(position, convertView, parent);
-                if (position == getCount()) {
-                    ((TextView) view.findViewById(android.R.id.text1)).setText("");
-                    ((TextView) view.findViewById(android.R.id.text1)).setHint(getItem(getCount())); // display hint
-                }
-                return view;
-            }
-
-            @Override
-            public int getCount() {
-                return super.getCount() - 1; // don't display last item it's used as the hint
-            }
-
-        };
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(activity,
+                R.array.units_array, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        adapter.addAll(Arrays.asList(activity.getResources().getStringArray(R.array.units_array)));
         spinner.setAdapter(adapter);
-        spinner.setSelection(adapter.getCount()); // set the hint the default selection
-        spinner.setOnItemSelectedListener(new UnitSpinnerListener(this));
+        spinner.setOnItemSelectedListener(new UnitSpinnerListener(activity, this, spinner));
 
     }
 

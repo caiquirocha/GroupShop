@@ -26,7 +26,7 @@ public class QuantityButtonListener implements View.OnClickListener {
             text.setText(String.valueOf(++value));
         }
         if (view.getId() == R.id.button_decrease) {
-            if (value <= 1) {
+            if (value < 1) {
                 return;
             }
             text.setText(String.valueOf(--value));

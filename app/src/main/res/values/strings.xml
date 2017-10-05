@@ -73,7 +73,7 @@
     <!-- Sharing -->
     <string name="share_link">https://groupshop.me/invite?id="</string>
     <string name="dynamic_link">u9j7f.app.goo.gl</string>
-
+    <string name="invite_received_title_text">Invitation Received</string>
 
 
 </resources>
