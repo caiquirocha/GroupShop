@@ -67,8 +67,9 @@ public class MenuListActivity extends BaseActivity {
 
         // database
         this.userListsRef = database.getReference()
-                .child("user_lists")
-                .child(getUid());
+                .child("users")
+                .child(getUid())
+                .child("lists");
 
         // database
         this.listsRef = database.getReference()
@@ -118,7 +119,6 @@ public class MenuListActivity extends BaseActivity {
                     @Override
                     public void onSuccess(PendingDynamicLinkData data) {
                         if (data == null) {
-                            //   Log.d(TAG, "getInvitation: no data");
                             return;
                         }
                         // Get the deep link
@@ -129,7 +129,7 @@ public class MenuListActivity extends BaseActivity {
                         if (invite != null) {
                             String invitationId = invite.getInvitationId();
                         }
-
+                        displayInviteReceivedDialog();
                         // Handle the deep link
                         // ...
                     }
@@ -273,10 +273,12 @@ public class MenuListActivity extends BaseActivity {
         builder.setView(dialogView);
         builder.setTitle(getResources().getString(R.string.invite_received_title_text));
 
-        builder.setPositiveButton("Done", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton("Open", new DialogInterface.OnClickListener() {
 
             @Override
             public void onClick(DialogInterface dialog, int whichButton) {
+
+                
             }
         });
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -311,6 +313,7 @@ public class MenuListActivity extends BaseActivity {
      */
     public void saveList(List list) {
         listsRef.child(list.getKey()).setValue(list);
+        listsRef.child(list.getKey()).child("users").child(getUid()).setValue(true);
     }
 
     /**

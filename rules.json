@@ -1,0 +1,30 @@
+{
+  "rules": {
+    "list_items": {
+      "$list_id": {
+        ".read": "root.child('lists/'+$list_id+'/users/'+auth.uid).exists() || root.child('lists/'+$list_id+'/invites/'+root.child('users/'+auth.uid+'/invite').val()).exists()",
+        ".write": "root.child('lists/'+$list_id+'/users/'+auth.uid).exists() || root.child('lists/'+$list_id+'/invites/'+root.child('users/'+auth.uid+'/invite').val()).exists()"
+      }
+    },
+    "lists": {
+      ".read": "auth != null",
+      ".write": "auth != null",
+      "$list_id": {
+        ".read": "data.child('users/'+auth.uid).exists() || data.child('invites/'+root.child('users/'+auth.uid+'/invite').val()).exists()",
+        ".write": "data.child('users/'+auth.uid).exists() || data.child('invites/'+root.child('users/'+auth.uid+'/invite').val()).exists()",
+        "users": {
+          "$user_id": {
+            ".read": "auth.uid === $user_id",
+            ".write": "auth.uid === $user_id"
+          }
+        }
+      }
+    },
+    "users": {
+      "$user_id": {
+        ".read": "$user_id === auth.uid",
+        ".write": "$user_id === auth.uid"
+      }
+    }
+  }
+}
