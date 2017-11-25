@@ -5,6 +5,7 @@ import com.jjacobson.groupshop.shoppinglist.item.Item;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Map;
 
 /**
  * Created by Jeremiah on 7/2/2017.
@@ -13,8 +14,9 @@ import java.util.ArrayList;
 public class List implements Serializable {
 
     private String name;
-    private ArrayList<Item> items;
     private String key;
+    private Map<String, Boolean> users;
+    private ArrayList<Item> items;
 
     public List() {
         // required for firebase
@@ -48,4 +50,11 @@ public class List implements Serializable {
         this.key = key;
     }
 
+    public Map<String, Boolean> getUsers() {
+        return users;
+    }
+
+    public void setUsers(Map<String, Boolean> users) {
+        this.users = users;
+    }
 }

@@ -44,6 +44,8 @@ import com.jjacobson.groupshop.sharing.users.User;
 import com.jjacobson.groupshop.shoppinglist.list.List;
 import com.jjacobson.groupshop.shoppinglist.list.ShoppingListActivity;
 
+import java.util.HashMap;
+
 public class MenuListActivity extends BaseActivity {
 
     private DatabaseReference userListsRef;
@@ -300,6 +302,11 @@ public class MenuListActivity extends BaseActivity {
     private List createNewList(String name) {
         List list = new List();
         list.setName(name);
+
+        HashMap<String, Boolean> userMap = new HashMap<>();
+        userMap.put(getUid(), true);
+        list.setUsers(userMap);
+
         String key = userListsRef.push().getKey();
         userListsRef.child(key).child("visible").setValue(true);
         list.setKey(key);
@@ -313,7 +320,6 @@ public class MenuListActivity extends BaseActivity {
      */
     public void saveList(List list) {
         listsRef.child(list.getKey()).setValue(list);
-        listsRef.child(list.getKey()).child("users").child(getUid()).setValue(true);
     }
 
     /**
