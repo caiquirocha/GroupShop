@@ -33,13 +33,9 @@ public class ShareUtil {
                 .child(list.getKey())
                 .child("invitations");
 
-        String key = reference.push().getKey();
+        final String key = reference.push().getKey();
         reference.child(key).setValue(true); // todo move this to shareComplete
-        Uri uri = Uri.parse(activity.getResources().getString(R.string.share_link_uri))
-                .buildUpon()
-                .appendQueryParameter("list_id", list.getKey())
-                .appendQueryParameter("invite_id", key)
-                .build();
+        Uri uri = Uri.parse(activity.getResources().getString(R.string.share_link_uri));
 
         FirebaseDynamicLinks.getInstance().createDynamicLink()
                 .setLink(uri)
@@ -54,7 +50,11 @@ public class ShareUtil {
                     public void onComplete(@NonNull Task<ShortDynamicLink> task) {
                         if (task.isSuccessful()) {
                             // Short link created
-                            Uri shortLink = task.getResult().getShortLink();
+                            Uri shortLink = task.getResult().getShortLink()
+                                    .buildUpon()
+                                    .appendQueryParameter("list_id", list.getKey())
+                                    .appendQueryParameter("invite_id", key)
+                                    .build();
                             onShareLinkReady(activity, shortLink, list);
                         } else {
                             // todo toast error msg

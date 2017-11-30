@@ -133,18 +133,12 @@ public class MenuListActivity extends BaseActivity {
                             return;
                         }
                         // Get the deep link
-                        Uri deepLink = data.getLink();
-
-                        // Extract invite
+                        Uri link = data.getLink();
                         FirebaseAppInvite invite = FirebaseAppInvite.getInvitation(data);
                         if (invite != null) {
-                            String invitationId = invite.getInvitationId();
+                            String id = invite.getInvitationId();
                         }
 
-                        System.out.println("link is " + deepLink.getQueryParameter("list_id"));
-                  //      displayInviteReceivedDialog();
-                        // Handle the deep link
-                        // ...
                     }
                 })
                 .addOnFailureListener(this, new OnFailureListener() {
