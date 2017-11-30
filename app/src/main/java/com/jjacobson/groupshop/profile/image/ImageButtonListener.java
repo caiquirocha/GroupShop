@@ -1,4 +1,4 @@
-package com.jjacobson.groupshop.sharing.profile.image;
+package com.jjacobson.groupshop.profile.image;
 
 import android.Manifest;
 import android.app.Activity;
@@ -17,7 +17,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.jjacobson.groupshop.R;
-import com.jjacobson.groupshop.sharing.profile.EditProfileActivity;
+import com.jjacobson.groupshop.profile.edit.EditProfileActivity;
 
 /**
  * Created by Jeremiah on 8/15/2017.

@@ -11,7 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.jjacobson.groupshop.R;
-import com.jjacobson.groupshop.sharing.users.User;
+import com.jjacobson.groupshop.profile.Profile;
 import com.jjacobson.groupshop.shoppinglist.list.List;
 import com.jjacobson.groupshop.shoppinglist.list.ShoppingListActivity;
 
@@ -78,17 +78,17 @@ public class MenuListHolder extends RecyclerView.ViewHolder {
     }
 
     /**
-     * Add a user to the shared users layout
+     * Add a profile to the shared users layout
      *
-     * @param user shared with
+     * @param profile shared with
      */
-    public void addSharedUser(User user) {
+    public void addSharedUser(Profile profile) {
         LayoutInflater inflater = LayoutInflater.from(itemView.getContext());
         View view = inflater.inflate(R.layout.shared_list, null);
         ImageView userImage = (ImageView) view.findViewById(R.id.shared_list_image);
         TextView userName = (TextView) view.findViewById(R.id.shared_list_name);
         //userImage.setImageDrawable(); // TODO: 7/20/2017
-        //userName.setText(user.getName());
+        //userName.setText(profile.getName());
         sharedUsers.addView(view);
     }
 

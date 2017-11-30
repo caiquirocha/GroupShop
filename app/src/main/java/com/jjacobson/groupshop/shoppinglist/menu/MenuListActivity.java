@@ -39,8 +39,8 @@ import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
 import com.google.firebase.dynamiclinks.PendingDynamicLinkData;
 import com.jjacobson.groupshop.BaseActivity;
 import com.jjacobson.groupshop.R;
-import com.jjacobson.groupshop.sharing.users.SignInActivity;
-import com.jjacobson.groupshop.sharing.users.User;
+import com.jjacobson.groupshop.profile.Profile;
+import com.jjacobson.groupshop.profile.SignInActivity;
 import com.jjacobson.groupshop.shoppinglist.list.List;
 import com.jjacobson.groupshop.shoppinglist.list.ShoppingListActivity;
 import com.jjacobson.groupshop.util.ShareUtil;
@@ -56,7 +56,7 @@ public class MenuListActivity extends BaseActivity {
 
     private ValueEventListener userListener;
     private Query userQuery;
-    private User user;
+    private Profile profile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,14 +78,14 @@ public class MenuListActivity extends BaseActivity {
         this.listsRef = database.getReference()
                 .child("lists");
 
-        // user query
+        // profile query
         this.userQuery = database.getReference()
                 .child("user_profiles")
                 .child(getUid());
         userListener = userQuery.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                user = dataSnapshot.getValue(User.class);
+                profile = dataSnapshot.getValue(Profile.class);
                 updateUI();
             }
 
@@ -138,6 +138,8 @@ public class MenuListActivity extends BaseActivity {
                         if (invite != null) {
                             String id = invite.getInvitationId();
                         }
+                        String listId = link.getQueryParameter("list_id");
+                        String inviteId = link.getQueryParameter("invite_id");
 
                     }
                 })
@@ -146,6 +148,10 @@ public class MenuListActivity extends BaseActivity {
                     public void onFailure(@NonNull Exception e) {
                     }
                 });
+    }
+
+    private void setUserInviteToken() {
+
     }
 
     /**
@@ -202,7 +208,7 @@ public class MenuListActivity extends BaseActivity {
                 }
             });
         } else {
-            if (user == null) {
+            if (profile == null) {
                 return;
             }
             header.findViewById(R.id.drawer_button_view).setVisibility(View.GONE);
@@ -213,11 +219,11 @@ public class MenuListActivity extends BaseActivity {
             final ImageView imageView = (ImageView) findViewById(R.id.drawer_profile_image);
             final TextView nameText = (TextView) findViewById(R.id.drawer_profile_name);
             final TextView emailText = (TextView) findViewById(R.id.drawer_profile_email);
-            nameText.setText(user.getName());
-            emailText.setText(user.getEmail());
+            nameText.setText(profile.getName());
+            emailText.setText(profile.getEmail());
             RequestOptions options = new RequestOptions().centerCrop();
-            if (user.getPhotoUri() != null) {
-                Glide.with(this).asBitmap().apply(options).load(user.getPhotoUri()).into(new BitmapImageViewTarget(imageView) {
+            if (profile.getPhotoUri() != null) {
+                Glide.with(this).asBitmap().apply(options).load(profile.getPhotoUri()).into(new BitmapImageViewTarget(imageView) {
                     @Override
                     protected void setResource(Bitmap resource) {
                         RoundedBitmapDrawable circularBitmapDrawable =

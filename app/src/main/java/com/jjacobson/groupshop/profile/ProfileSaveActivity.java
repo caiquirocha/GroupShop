@@ -1,4 +1,4 @@
-package com.jjacobson.groupshop.sharing.users;
+package com.jjacobson.groupshop.profile;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -28,12 +28,12 @@ import java.io.IOException;
  * Created by Jeremiah on 8/22/2017.
  */
 
-public class UserSaveActivity extends Activity {
+public class ProfileSaveActivity extends Activity {
 
     private DatabaseReference profileRef;
     private StorageReference photoRef;
 
-    private User user;
+    private Profile profile;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -53,14 +53,14 @@ public class UserSaveActivity extends Activity {
                 .child("profile_image.jpg");
 
         Intent intent = getIntent();
-        this.user = (User) intent.getSerializableExtra("user_extra");
-        saveUser();
+        this.profile = (Profile) intent.getSerializableExtra("profile_extra");
+        saveProfile();
     }
 
-    private void saveUser() {
-        if (user.getPhotoUri() != null) {
+    private void saveProfile() {
+        if (profile.getPhotoUri() != null) {
             try {
-                saveImage(Uri.parse(user.getPhotoUri()));
+                saveImage(Uri.parse(profile.getPhotoUri()));
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -88,7 +88,7 @@ public class UserSaveActivity extends Activity {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                 Uri uri = taskSnapshot.getDownloadUrl();
-                user.setPhotoUri(uri.toString());
+                profile.setPhotoUri(uri.toString());
                 saveInfo();
             }
         }).addOnFailureListener(new OnFailureListener() {
@@ -101,7 +101,7 @@ public class UserSaveActivity extends Activity {
     }
 
     private void saveInfo() {
-        profileRef.setValue(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+        profileRef.setValue(profile).addOnSuccessListener(new OnSuccessListener<Void>() {
 
             @Override
             public void onSuccess(Void aVoid) {

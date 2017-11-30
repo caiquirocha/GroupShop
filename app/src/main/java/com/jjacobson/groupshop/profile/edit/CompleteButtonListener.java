@@ -1,4 +1,4 @@
-package com.jjacobson.groupshop.sharing.profile;
+package com.jjacobson.groupshop.profile.edit;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.jjacobson.groupshop.R;
-import com.jjacobson.groupshop.sharing.users.UserSaveActivity;
+import com.jjacobson.groupshop.profile.ProfileSaveActivity;
 import com.jjacobson.groupshop.util.DialogUtil;
 
 /**
@@ -42,8 +42,8 @@ class CompleteButtonListener implements View.OnClickListener {
         dialog = DialogUtil.createProgressDialog(activity, activity.getResources().getString(R.string.dialog_update_profile));
         dialog.show();
 
-        Intent intent = new Intent(activity, UserSaveActivity.class);
-        intent.putExtra("user_extra", activity.getUserProfile());
+        Intent intent = new Intent(activity, ProfileSaveActivity.class);
+        intent.putExtra("profile_extra", activity.getUserProfile());
         activity.startActivityForResult(intent, SAVE_REQUEST_CODE);
     }
 

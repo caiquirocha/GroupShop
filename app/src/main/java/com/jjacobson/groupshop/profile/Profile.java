@@ -1,4 +1,4 @@
-package com.jjacobson.groupshop.sharing.users;
+package com.jjacobson.groupshop.profile;
 
 import com.google.firebase.database.Exclude;
 
@@ -8,7 +8,7 @@ import java.io.Serializable;
  * Created by Jeremiah on 7/20/2017.
  */
 
-public class User implements Serializable {
+public class Profile implements Serializable {
 
     private String name;
     private String photoUri;
@@ -16,7 +16,7 @@ public class User implements Serializable {
 
     private String key;
 
-    public User() {
+    public Profile() {
         // required for firebase
     }
 

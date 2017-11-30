@@ -31,15 +31,15 @@
             android:label="@string/title_activity_list"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
-            android:name=".sharing.users.SignInActivity"
+            android:name=".profile.SignInActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
-            android:name=".sharing.profile.EditProfileActivity"/>
+            android:name=".profile.edit.EditProfileActivity"/>
         <activity
-            android:name=".sharing.users.UserSaveActivity"
+            android:name=".profile.ProfileSaveActivity"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
         <activity
-            android:name=".sharing.profile.image.DeleteImageActivity"
+            android:name=".profile.image.DeleteImageActivity"
             android:icon="@drawable/ic_cancel_red"
             android:label="@string/title_activity_delete_image"
             android:theme="@android:style/Theme.NoDisplay"/>

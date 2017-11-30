@@ -1,4 +1,4 @@
-package com.jjacobson.groupshop.sharing.users;
+package com.jjacobson.groupshop.profile;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -109,29 +109,29 @@ public class SignInActivity extends BaseActivity {
      * Create a newly registered users profile
      */
     private void createProfile() {
-        User user = new User();
-        user.setKey(getUser().getUid());
+        Profile profile = new Profile();
+        profile.setKey(getUser().getUid());
 
         String displayName = getUserDisplayName();
         if (displayName != null) {
-            user.setName(displayName);
+            profile.setName(displayName);
         }
 
         String email = getUserEmail();
         if (email != null) {
-            user.setEmail(email);
+            profile.setEmail(email);
         }
 
         Uri photo = getUserPhoto();
         if (photo != null) {
-            user.setPhotoUri(photo.toString());
+            profile.setPhotoUri(photo.toString());
         }
         // create profile dialog
         dialog = DialogUtil.createProgressDialog(this, getResources().getString(R.string.dialog_create_profile));
         dialog.show();
 
-        Intent intent = new Intent(this, UserSaveActivity.class);
-        intent.putExtra("user_extra", user);
+        Intent intent = new Intent(this, ProfileSaveActivity.class);
+        intent.putExtra("user_extra", profile);
         startActivityForResult(intent, SAVE_REQUEST_CODE);
     }
 

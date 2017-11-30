@@ -7,7 +7,7 @@ import android.view.MenuItem;
 
 import com.jjacobson.groupshop.R;
 import com.jjacobson.groupshop.settings.SettingsActivity;
-import com.jjacobson.groupshop.sharing.profile.EditProfileActivity;
+import com.jjacobson.groupshop.profile.edit.EditProfileActivity;
 
 /**
  * Created by Jeremiah on 9/5/2017.

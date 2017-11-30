@@ -1,4 +1,4 @@
-package com.jjacobson.groupshop.sharing.profile;
+package com.jjacobson.groupshop.profile.edit;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -15,12 +15,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 import com.jjacobson.groupshop.BaseActivity;
 import com.jjacobson.groupshop.R;
-import com.jjacobson.groupshop.sharing.profile.image.ImageButtonListener;
-import com.jjacobson.groupshop.sharing.users.User;
+import com.jjacobson.groupshop.profile.image.ImageButtonListener;
+import com.jjacobson.groupshop.profile.Profile;
 
 public class EditProfileActivity extends BaseActivity {
 
-    private User user;
+    private Profile profile;
 
     // ui
     private EditText nameText;
@@ -49,7 +49,7 @@ public class EditProfileActivity extends BaseActivity {
         reference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                user = dataSnapshot.getValue(User.class);
+                profile = dataSnapshot.getValue(Profile.class);
                 onUserLoaded();
             }
 
@@ -89,17 +89,17 @@ public class EditProfileActivity extends BaseActivity {
      * Called when the users profile is loaded
      */
     private void onUserLoaded() {
-        String name = user.getName();
+        String name = profile.getName();
         if (name != null && !name.equals("")) {
             nameText.setText(name);
         }
 
-        String email = user.getEmail();
+        String email = profile.getEmail();
         if (email != null && !email.equals("")) {
             emailText.setText(email);
         }
 
-        String uri = user.getPhotoUri();
+        String uri = profile.getPhotoUri();
         if (uri != null && !uri.equals("")) {
             imageListener.updateImage(Uri.parse(uri));
         }
@@ -124,12 +124,12 @@ public class EditProfileActivity extends BaseActivity {
     }
 
     /**
-     * Get the user
+     * Get the profile
      *
-     * @return user
+     * @return profile
      */
-    public User getUserProfile() {
-        return user;
+    public Profile getUserProfile() {
+        return profile;
     }
 
 }
