@@ -43,6 +43,7 @@ import com.jjacobson.groupshop.sharing.users.SignInActivity;
 import com.jjacobson.groupshop.sharing.users.User;
 import com.jjacobson.groupshop.shoppinglist.list.List;
 import com.jjacobson.groupshop.shoppinglist.list.ShoppingListActivity;
+import com.jjacobson.groupshop.util.ShareUtil;
 
 import java.util.HashMap;
 
@@ -115,6 +116,14 @@ public class MenuListActivity extends BaseActivity {
         updateUI();
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == ShareUtil.INVITATION) {
+            ShareUtil.shareComplete(this, resultCode, data);
+        }
+    }
+
     private void checkForInvitation() {
         FirebaseDynamicLinks.getInstance().getDynamicLink(getIntent())
                 .addOnSuccessListener(this, new OnSuccessListener<PendingDynamicLinkData>() {
@@ -131,7 +140,9 @@ public class MenuListActivity extends BaseActivity {
                         if (invite != null) {
                             String invitationId = invite.getInvitationId();
                         }
-                        displayInviteReceivedDialog();
+
+                        System.out.println("link is " + deepLink.getQueryParameter("list_id"));
+                  //      displayInviteReceivedDialog();
                         // Handle the deep link
                         // ...
                     }
@@ -268,13 +279,10 @@ public class MenuListActivity extends BaseActivity {
     /**
      * Display the list name dialog prompt
      */
-    private void displayInviteReceivedDialog() {
+    private void displayInviteReceivedDialog(List list) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        LayoutInflater inflater = getLayoutInflater();
-        View dialogView = inflater.inflate(R.layout.dialog_invite_received, null);
-        builder.setView(dialogView);
-        builder.setTitle(getResources().getString(R.string.invite_received_title_text));
-
+        builder.setTitle(getResources().getString(R.string.invitation_received_title));
+        builder.setMessage(getResources().getString(R.string.invitation_received_message));
         builder.setPositiveButton("Open", new DialogInterface.OnClickListener() {
 
             @Override

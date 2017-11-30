@@ -77,6 +77,14 @@ public class ShoppingListActivity extends BaseActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == ShareUtil.INVITATION) {
+            ShareUtil.shareComplete(this, resultCode, data);
+        }
+    }
+
     /**
      * Initialize the new list floating action button
      */

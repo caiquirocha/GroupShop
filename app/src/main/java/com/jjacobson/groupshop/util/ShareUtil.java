@@ -1,15 +1,18 @@
 package com.jjacobson.groupshop.util;
 
-import android.content.Context;
+import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 
+import com.google.android.gms.appinvite.AppInviteInvitation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.dynamiclinks.DynamicLink;
 import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
 import com.google.firebase.dynamiclinks.ShortDynamicLink;
+import com.jjacobson.groupshop.BaseActivity;
 import com.jjacobson.groupshop.R;
 import com.jjacobson.groupshop.shoppinglist.list.List;
 
@@ -19,14 +22,28 @@ import com.jjacobson.groupshop.shoppinglist.list.List;
 
 public class ShareUtil {
 
+    public static final int INVITATION = 5;
+
     /**
      * Share a list
      */
-    public static void shareList(final Context context, final List list) {
-        String link = context.getResources().getString(R.string.share_link) + list.getKey();
+    public static void shareList(final BaseActivity activity, final List list) {
+        DatabaseReference reference = activity.getDatabase().getReference()
+                .child("lists")
+                .child(list.getKey())
+                .child("invitations");
+
+        String key = reference.push().getKey();
+        reference.child(key).setValue(true); // todo move this to shareComplete
+        Uri uri = Uri.parse(activity.getResources().getString(R.string.share_link_uri))
+                .buildUpon()
+                .appendQueryParameter("list_id", list.getKey())
+                .appendQueryParameter("invite_id", key)
+                .build();
+
         FirebaseDynamicLinks.getInstance().createDynamicLink()
-                .setLink(Uri.parse(link))
-                .setDynamicLinkDomain(context.getResources().getString(R.string.dynamic_link))
+                .setLink(uri)
+                .setDynamicLinkDomain(activity.getResources().getString(R.string.dynamic_link))
                 .setAndroidParameters(
                         new DynamicLink.AndroidParameters.Builder("com.jjacobson.groupshop")
                                 .setMinimumVersion(125)
@@ -38,7 +55,7 @@ public class ShareUtil {
                         if (task.isSuccessful()) {
                             // Short link created
                             Uri shortLink = task.getResult().getShortLink();
-                            onShareLinkReady(context, shortLink);
+                            onShareLinkReady(activity, shortLink, list);
                         } else {
                             // todo toast error msg
                         }
@@ -49,13 +66,31 @@ public class ShareUtil {
     /**
      * Called when share link ready
      */
-    private static void onShareLinkReady(final Context context, Uri link) {
-        Intent shareIntent = new Intent();
-        String msg = "Hey, check this out: " + link;
-        shareIntent.setAction(Intent.ACTION_SEND);
-        shareIntent.putExtra(Intent.EXTRA_TEXT, msg);
-        shareIntent.setType("text/plain");
-        context.startActivity(shareIntent);
+    private static void onShareLinkReady(final BaseActivity activity, Uri link, List list) {
+        Intent intent = new AppInviteInvitation.IntentBuilder(activity.getResources().getString(R.string.invitation_title))
+                .setMessage(String.format(activity.getResources().getString(R.string.invitation_message), list.getName()))
+                .setDeepLink(link)
+                .setCallToActionText(activity.getResources().getString(R.string.invitation_cta))
+                .build();
+
+        activity.startActivityForResult(intent, INVITATION);
+    }
+
+    public static void shareComplete(BaseActivity activity, int result, Intent data) {
+        System.out.println("Share completed!");
+        if (result == Activity.RESULT_OK) {
+            // Get the invitation IDs of all sent messages
+            String[] ids = AppInviteInvitation.getInvitationIds(result, data);
+            for (String id : ids) {
+                //    Log.d(TAG, "onActivityResult: sent invitation " + id);
+            }
+        } else {
+            // Sending failed or it was canceled, show failure message to the user
+            // [START_EXCLUDE]
+            // showMessage(getString(R.string.send_failed));
+            // [END_EXCLUDE]
+        }
+
     }
 
 }

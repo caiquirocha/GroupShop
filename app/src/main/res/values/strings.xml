@@ -67,13 +67,17 @@
     <string name="nav_drawer_settings">Settings</string>
 
     <!-- Progress Dialogs -->
-    <string name="dialog_update_profile">Updating profile...</string>
-    <string name="dialog_create_profile">Creating profile...</string>
+    <string name="dialog_update_profile">Updating profile…</string>
+    <string name="dialog_create_profile">Creating profile…</string>
 
     <!-- Sharing -->
-    <string name="share_link">https://groupshop.me/invite?id="</string>
+    <string name="share_link_uri">https://groupshop.me/invite</string>
     <string name="dynamic_link">u9j7f.app.goo.gl</string>
-    <string name="invite_received_title_text">Invitation Received</string>
+    <string name="invitation_received_title">Invitation Received</string>
+    <string name="invitation_received_message">You received an invitation for the list</string>
+    <string name="invitation_title">Share a shopping list</string>
+    <string name="invitation_message">You were invited to a new shopping list: %1$s</string>
+    <string name="invitation_cta">View</string>
 
 
 </resources>

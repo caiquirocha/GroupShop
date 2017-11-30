@@ -35,4 +35,8 @@ public class BaseActivity extends AppCompatActivity {
     public FirebaseUser getUser() {
         return auth.getCurrentUser();
     }
+
+    public FirebaseDatabase getDatabase() {
+        return database;
+    }
 }
