@@ -39,4 +39,8 @@ public class BaseActivity extends AppCompatActivity {
     public FirebaseDatabase getDatabase() {
         return database;
     }
+
+    public FirebaseAuth getAuth() {
+        return auth;
+    }
 }

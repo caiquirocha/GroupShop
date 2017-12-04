@@ -27,8 +27,10 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.appinvite.FirebaseAppInvite;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -50,6 +52,7 @@ import java.util.HashMap;
 public class MenuListActivity extends BaseActivity {
 
     private DatabaseReference userListsRef;
+    private DatabaseReference userRef;
     private DatabaseReference listsRef;
 
     private MenuListAdapter adapter;
@@ -73,6 +76,11 @@ public class MenuListActivity extends BaseActivity {
                 .child("users")
                 .child(getUid())
                 .child("lists");
+
+        // user
+        this.userRef = database.getReference()
+                .child("users")
+                .child(getUid());
 
         // database
         this.listsRef = database.getReference()
@@ -140,6 +148,7 @@ public class MenuListActivity extends BaseActivity {
                         }
                         String listId = link.getQueryParameter("list_id");
                         String inviteId = link.getQueryParameter("invite_id");
+                        onInvitationReceived(inviteId, listId);
 
                     }
                 })
@@ -150,9 +159,37 @@ public class MenuListActivity extends BaseActivity {
                 });
     }
 
-    private void setUserInviteToken() {
-
+    /**
+     * Called after an invitation is successfully received and parameters parsed
+     *
+     * @param invite id
+     * @param list   id
+     */
+    private void onInvitationReceived(final String invite, final String list) {
+        System.out.println("called!!! inv is " + invite + " list is " + list);
+        userRef.child("invite").setValue(invite).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                onInvitationProcessed(list);
+            }
+        });
     }
+
+    private void onInvitationProcessed(final String list) {
+        listsRef.child(list)
+                .child("users")
+                .child(getUid())
+                .setValue(true)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        userRef.child("lists")
+                                .child(list)
+                                .setValue(true);
+                    }
+                });
+    }
+
 
     /**
      * Initialize the actionbar drawer
@@ -187,7 +224,7 @@ public class MenuListActivity extends BaseActivity {
      */
     private void initRecycler() {
         RecyclerView lists = (RecyclerView) findViewById(R.id.menu_list_recycler);
-        Query listsQuery = userListsRef.orderByChild("visible").equalTo(true);
+        Query listsQuery = userListsRef.orderByValue().equalTo(true);
         MenuListAdapter adapter = new MenuListAdapter(this, Object.class, R.layout.row_shopping_list, MenuListHolder.class, listsQuery);
         DividerItemDecoration divider = new DividerItemDecoration(lists.getContext(), DividerItemDecoration.VERTICAL);
         lists.addItemDecoration(divider);
@@ -288,7 +325,7 @@ public class MenuListActivity extends BaseActivity {
             @Override
             public void onClick(DialogInterface dialog, int whichButton) {
 
-                
+
             }
         });
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -316,7 +353,7 @@ public class MenuListActivity extends BaseActivity {
         list.setUsers(userMap);
 
         String key = userListsRef.push().getKey();
-        userListsRef.child(key).child("visible").setValue(true);
+        userListsRef.child(key).setValue(true);
         list.setKey(key);
         return list;
     }
@@ -334,6 +371,6 @@ public class MenuListActivity extends BaseActivity {
      * Delete the list
      */
     public void deleteList(List list) {
-        userListsRef.child(list.getKey()).child("visible").setValue(false);
+        userListsRef.child(list.getKey()).setValue(false);
     }
 }
