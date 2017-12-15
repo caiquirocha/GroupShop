@@ -1,16 +1,12 @@
 package com.jjacobson.groupshop.settings;
 
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
+import android.preference.PreferenceActivity;
 
-import com.jjacobson.groupshop.R;
+/**
+ * Created by Jeremiah on 12/8/2017.
+ */
 
-public class SettingsActivity extends AppCompatActivity {
+public class SettingsActivity extends PreferenceActivity {
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_settings);
 
-    }
 }

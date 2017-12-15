@@ -6,7 +6,6 @@ import android.support.design.widget.NavigationView;
 import android.view.MenuItem;
 
 import com.jjacobson.groupshop.R;
-import com.jjacobson.groupshop.settings.SettingsActivity;
 import com.jjacobson.groupshop.profile.edit.EditProfileActivity;
 
 /**

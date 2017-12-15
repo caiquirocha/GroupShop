@@ -47,7 +47,7 @@
             android:id="@+id/list_item_count_seperator"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/item_list_count_seperator"
+            android:text="@string/item_list_count_separator"
             android:textSize="@dimen/item_count_font_size"/>
 
         <TextView

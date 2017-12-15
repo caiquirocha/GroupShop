@@ -23,7 +23,7 @@
     <!-- Shopping Lists Menu -->
     <string name="new_list_title_text">Name New List</string>
     <string name="item_list_count_checked">0</string>
-    <string name="item_list_count_seperator">/</string>
+    <string name="item_list_count_separator">/</string>
     <string name="item_list_count_total">0</string>
 
     <!-- Shopping list row dropdown -->
@@ -32,7 +32,6 @@
     <string name="action_list_delete">Delete</string>
     <string name="rename_list_title_text">Rename List</string>
     <string name="sign_in_title_text">Sign In</string>
-    <string name="dialog_sign_in_text">You must sign in to share this list</string>
 
     <!-- Shopping List -->
     <string name="action_delete_purchased">Delete purchased</string>
@@ -62,7 +61,7 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_account_group">Accounts</string>
     <string name="sign_in_button_text">Sign In or Register</string>
-    <string name="sign_in_text">Share lists and sync them between devices</string>
+    <string name="sign_in_text">Sign in to sync lists to the cloud</string>
     <string name="nav_drawer_edit_profile">Edit Profile</string>
     <string name="nav_drawer_settings">Settings</string>
 
@@ -78,6 +77,5 @@
     <string name="invitation_title">Share a shopping list</string>
     <string name="invitation_message">You were invited to a new shopping list: %1$s</string>
     <string name="invitation_cta">View</string>
-
 
 </resources>

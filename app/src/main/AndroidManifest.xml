@@ -33,8 +33,7 @@
         <activity
             android:name=".profile.SignInActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
-        <activity
-            android:name=".profile.edit.EditProfileActivity"/>
+        <activity android:name=".profile.edit.EditProfileActivity"/>
         <activity
             android:name=".profile.ProfileSaveActivity"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
@@ -45,7 +44,8 @@
             android:theme="@android:style/Theme.NoDisplay"/>
         <activity
             android:name=".settings.SettingsActivity"
-            android:label="@string/title_activity_settings"/>
+            android:label="@string/title_activity_settings">
+        </activity>
     </application>
 
 </manifest>
