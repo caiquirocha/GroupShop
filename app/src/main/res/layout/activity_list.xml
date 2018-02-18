@@ -23,6 +23,15 @@
 
     </android.support.design.widget.AppBarLayout>
 
+    <TextView
+        android:id="@+id/empty_lists_text"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="@string/empty_list"
+        android:textSize="@dimen/empty_state_text"
+        android:visibility="gone"/>
+
     <include layout="@layout/content_list"/>
 
     <android.support.design.widget.FloatingActionButton

@@ -9,14 +9,6 @@
     tools:context="com.jjacobson.groupshop.shoppinglist.list.ShoppingListActivity"
     tools:showIn="@layout/activity_list">
 
-    <TextView
-        android:id="@+id/empty_lists_text"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:text="@string/empty_list"
-        android:visibility="gone"/>
-
     <android.support.v7.widget.RecyclerView
         android:id="@+id/shopping_list_recycler"
         android:layout_width="match_parent"
