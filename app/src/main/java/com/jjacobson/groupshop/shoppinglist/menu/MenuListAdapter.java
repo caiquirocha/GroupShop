@@ -4,6 +4,7 @@ import android.support.annotation.LayoutRes;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DataSnapshot;
@@ -23,6 +24,9 @@ import com.jjacobson.groupshop.shoppinglist.list.List;
 public class MenuListAdapter extends FirebaseRecyclerAdapter<Object, MenuListHolder> {
 
     private MenuListActivity activity;
+
+    private TextView emptyListView;
+
     private Query checkedQuery;
     private Query totalQuery;
     private Query listQuery;
@@ -34,6 +38,7 @@ public class MenuListAdapter extends FirebaseRecyclerAdapter<Object, MenuListHol
                            Class<MenuListHolder> viewHolderClass, Query query) {
         super(modelClass, modelLayout, viewHolderClass, query);
         this.activity = activity;
+        this.emptyListView = (TextView) activity.findViewById(R.id.empty_lists_text);
     }
 
     @Override
@@ -63,6 +68,11 @@ public class MenuListAdapter extends FirebaseRecyclerAdapter<Object, MenuListHol
             }
         });
 
+    }
+
+    @Override
+    public void onDataChanged() {
+        emptyListView.setVisibility(getItemCount() == 0 ? View.VISIBLE : View.GONE);
     }
 
     private void onListLoaded(final MenuListHolder holder, final List list) {

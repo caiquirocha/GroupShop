@@ -9,6 +9,14 @@
     tools:context="com.jjacobson.groupshop.shoppinglist.menu.MenuListActivity"
     tools:showIn="@layout/activity_menu_list">
 
+    <TextView
+        android:id="@+id/empty_lists_text"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="@string/empty_lists"
+        android:visibility="gone"/>
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/menu_list_recycler"
         android:layout_width="match_parent"

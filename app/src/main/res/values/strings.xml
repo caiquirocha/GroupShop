@@ -22,6 +22,7 @@
 
     <!-- Shopping Lists Menu -->
     <string name="new_list_title_text">Name New List</string>
+    <string name="empty_lists">No lists found</string>
     <string name="item_list_count_checked">0</string>
     <string name="item_list_count_separator">/</string>
     <string name="item_list_count_total">0</string>
@@ -40,6 +41,7 @@
     <!-- Add Item -->
     <string name="action_settings">Settings</string>
     <string name="new_item_title_text">Add New Item</string>
+    <string name="empty_list">No shopping list items</string>
 
     <!-- Edit Item -->
     <string name="title_activity_item_edit">New Item</string>
